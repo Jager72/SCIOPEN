@@ -8,9 +8,10 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <MenuBar CurrentPageTitle={"TOSTY"}/>
-      <TostElementInput itemType={"SER"}/>
-      <TostElementInput itemType={"SZYNKA"}/>
-      <TostElementInput itemType={"KETCHUP"}/>
+      <TostElementInput itemType={"Ser"} eImage={"cheese"}/>
+      <TostElementInput itemType={"Szynka"} eImage={"ham"}/>
+      <TostElementInput itemType={"Ketchup"} eImage={"ketchup"}/>
+      <TostElementInput itemType={"Ilość"} eImage={"one"}/>
     </SafeAreaView>
   );
 }
