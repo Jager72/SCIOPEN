@@ -15,7 +15,7 @@ export default MenuBar;
 const styles = StyleSheet.create({
     MenuBar: {
         flex: 0,
-        backgroundColor: '#252323',
+        backgroundColor: '#213769',
         height:53,
 
     },
