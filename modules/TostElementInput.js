@@ -11,17 +11,17 @@ const images = {
   amount: <Text style={{fontSize: 45, paddingHorizontal:10}}>#</Text>
 }
 const TostElementInput = ({ itemType, eImage }) => {
-  const [getValue, setValue] = useState(0);
+  const [getValue, setValue] = useState(1);
   return (
     <View style={styles.TostElementInput}>
       {images[eImage]}
       <Text style={styles.typeText}>{itemType}</Text>
       <View style={styles.buttonWrapper}>
-        <Button disabled={!getValue} onPress={() => {setValue(getValue-1)}} color="#ac0303" title="-" />
+        <Button disabled={eImage=="amount"? getValue==1 : !getValue} onPress={() => {setValue(getValue-1)}} color="#ac0303" title="-" />
       </View>
       <Text style={styles.amountText}>{getValue}</Text>
       <View style={styles.buttonWrapper}>
-        <Button onPress={() => {setValue(getValue+1)}} color={color.highlightColor} title="+" />
+        <Button onPress={() => {setValue(getValue+1)}} color={color.highlightColor} title="+"  />
       </View>
     </View>
   );
