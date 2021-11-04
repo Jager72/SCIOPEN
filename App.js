@@ -1,23 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import {Provider} from 'react-redux';
-
-
-import ConfigureOrder from './modules/ConfigureOrder'
+import { StyleSheet, Button, View, SafeAreaView } from 'react-native';
 import MenuBar from './modules/MenuBar'
-import Login from './modules/Login'
-import {store} from './actions/store'
-import MainView from "./MainView";
+import TostElementInput from './modules/ConfigureOrder/TostElementInput'
+import TostElementBool from './modules/ConfigureOrder/TostElementBool'
+import MainView from './MainView'
+import { color } from './helpers/styles';
 
 export default function App() {
   return (
-      <Provider store={store}>
-          <SafeAreaView style={styles.container}>
-              <StatusBar style="auto" />
-              <MainView/>
-          </SafeAreaView>
-      </Provider>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <MainView/>
+    </SafeAreaView>
   );
 }
 
@@ -25,5 +20,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop:40,
     flex:1,
-  },
+    backgroundColor: color.brightColor
+  }
 });

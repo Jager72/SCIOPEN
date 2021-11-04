@@ -22,6 +22,12 @@ const MainView = props => {
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex:1,
+    }
+});
+
 const mapStateToProps = state => ({
     user: state.user
 })
