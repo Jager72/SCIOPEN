@@ -2,9 +2,10 @@ import React from 'react';
 import {Button, StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
+import {connect} from 'react-redux';
+import * as userActions from '../actions/user';
 
-
-const Login = ({navigation}) => {
+const Login = (props) => {
 
     const [data, setData] = React.useState({
         username: '',
@@ -35,16 +36,17 @@ const Login = ({navigation}) => {
     }
 
     const loginHandle = (userName, pin) => {
-        if ( data.username.length == 0 || data.pin.length == 0 ) {
+        if ( data.username.length === 0 || data.pin.length === 0 ) {
             Alert.alert('Błąd!', 'Pola nie mogą być puste!');
             return;
         }
+        props.login(userName, pin);
     }
 
     return(
         <View  style={styles.container}>
             <View style={styles.imgContainer}>
-                <Animatable.Image 
+                <Animatable.Image
                 animation="bounceIn"
                 duraton="1500"
                 source={require('../assets/sci.png')}
@@ -58,12 +60,12 @@ const Login = ({navigation}) => {
                     <Text style={styles.text}>Login:</Text>
                     <View style={styles.container2}>
                         <View style={styles.row}>
-                            <Feather 
+                            <Feather
                                 name="user"
                                 color="white"
                                 size={25}
                             />
-                            <TextInput 
+                            <TextInput
                             autoCapitalize="none"
                             style={styles.textInput}
                             underlineColorAndroid="transparent"
@@ -75,31 +77,31 @@ const Login = ({navigation}) => {
                     <Text style={styles.text}>Pin:</Text>
                     <View style={styles.container2}>
                         <View style={styles.row}>
-                            <Feather 
+                            <Feather
                                 name="lock"
                                 color="white"
                                 size={25}
                             />
-                            <TextInput 
+                            <TextInput
                             autoCapitalize="none"
                             keyboardType="numeric"
                             style={styles.textInput}
                             underlineColorAndroid="transparent"
                             selectionColor={'white'}
-                            secureTextEntry={data.secureTextEntry ? true : false}
+                            secureTextEntry={data.secureTextEntry}
                             onChangeText={(val) => pinInputChange(val)}
                             />
                             <TouchableOpacity
                             onPress={updateSecureTextEntry}
                             >
-                                {data.secureTextEntry ? 
-                                <Feather 
+                                {data.secureTextEntry ?
+                                <Feather
                                     name="eye-off"
                                     color="white"
                                     size={25}
                                 />
                                 :
-                                <Feather 
+                                <Feather
                                     name="eye"
                                     color="white"
                                     size={25}
@@ -114,7 +116,7 @@ const Login = ({navigation}) => {
                     >
                         <View style={styles.row2}>
                             <View style={styles.row3}>
-                                <Feather 
+                                <Feather
                                     name="log-in"
                                     color="white"
                                     size={35}
@@ -130,24 +132,25 @@ const Login = ({navigation}) => {
     )
 }
 
-const updateSecureTextEntry = () => {
-    setData({
-        ...data,
-        secureTextEntry: !data.secureTextEntry
-    });
-};
+const mapStateToProps = state => ({
+    user: state.user
+})
 
-export default Login;
+const mapActionsToProps = {
+    login: userActions.login
+}
+
+export default connect(mapStateToProps,mapActionsToProps)(Login);
 
 const styles = StyleSheet.create({
     container:{
         flex:1,
         alignItems: 'center',
-    }, 
+    },
     container2:{
         flex:0,
         alignItems: 'center',
-    }, 
+    },
     main: {
         height:'100%',
         width:'100%',
