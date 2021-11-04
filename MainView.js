@@ -15,7 +15,7 @@ const MainView = props => {
         );
     }
     return (
-        <View>
+        <View style={styles.container}>
             <MenuBar currentPageTitle={'TOSTY'}/>
             <ConfigureOrder/>
         </View>
