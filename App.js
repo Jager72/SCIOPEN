@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import MenuBar from './modules/MenuBar'
 import TostElementInput from './modules/TostElementInput'
+import { color } from './helpers/styles';
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
@@ -20,5 +21,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop:40,
     flex:1,
+    backgroundColor: color.secondaryColor
   },
 });
