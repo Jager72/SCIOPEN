@@ -1,24 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Button, View, SafeAreaView } from 'react-native';
-import MenuBar from './modules/MenuBar'
-import TostElementInput from './modules/ConfigureOrder/TostElementInput'
-import TostElementBool from './modules/ConfigureOrder/TostElementBool'
-import ConfigureOrder from "./modules/ConfigureOrder";
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import {Provider,connect} from 'react-redux';
 
-const MainView = () => {
+
+import ConfigureOrder from './modules/ConfigureOrder'
+import MenuBar from './modules/MenuBar'
+import Login from './modules/Login'
+
+const MainView = props => {
+    if (!props.user.isLogged){
+        return (
+            <Login/>
+        );
+    }
     return (
-        <View style={styles.container}>
-            <StatusBar />
-            <MenuBar CurrentPageTitle={"TOSTY"}/>
+        <View>
+            <MenuBar currentPageTitle={'TOSTY'}/>
             <ConfigureOrder/>
         </View>
     );
 }
-export default MainView
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
     }
 });
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(MainView)

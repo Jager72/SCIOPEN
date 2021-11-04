@@ -10,6 +10,7 @@ import { color } from './helpers/styles';
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
       <MainView/>
     </SafeAreaView>
   );
