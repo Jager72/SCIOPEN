@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import { color } from '../helpers/styles';
+
 const MenuBar = ({CurrentPageTitle}) => {
     return(
         <View style={styles.MenuBar}>
