@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, View, Image } from "react-native";
-import { color } from "../helpers/styles";
-import Cheese from "../assets/Cheese"
-import Ham from "../assets/Ham"
-import Ketchup from "../assets/Ketchup"
+import { color } from "../../helpers/styles";
+import Cheese from "../../assets/Cheese"
+import Ham from "../../assets/Ham"
+import Ketchup from "../../assets/Ketchup"
 const images = {
   cheese: <Cheese width={50} height={50}/>,
   ham: <Ham width={50} height={50}/>,

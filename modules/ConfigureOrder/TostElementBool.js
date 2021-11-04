@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, StyleSheet, Text, View } from "react-native";
-import { color } from "../helpers/styles";
-import Ketchup from "../assets/Ketchup"
+import { color } from "../../helpers/styles";
+import Ketchup from "../../assets/Ketchup"
 const images = {
   ketchup: <Ketchup width={50} height={50}/>,
 }

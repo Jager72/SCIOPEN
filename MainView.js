@@ -4,21 +4,21 @@ import { StyleSheet, Button, View, SafeAreaView } from 'react-native';
 import MenuBar from './modules/MenuBar'
 import TostElementInput from './modules/ConfigureOrder/TostElementInput'
 import TostElementBool from './modules/ConfigureOrder/TostElementBool'
-import MainView from './MainView'
-import { color } from './helpers/styles';
+import ConfigureOrder from "./modules/ConfigureOrder";
 
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <MainView/>
-    </SafeAreaView>
-  );
+const MainView = () => {
+    return (
+        <View style={styles.container}>
+            <StatusBar />
+            <MenuBar CurrentPageTitle={"TOSTY"}/>
+            <ConfigureOrder/>
+        </View>
+    );
 }
+export default MainView
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop:40,
-    flex:1,
-    backgroundColor: color.brightColor
-  }
+    container: {
+        flex:1,
+    }
 });
