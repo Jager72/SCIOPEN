@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {color} from '../helpers/styles';
 import Toast from '../assets/Toast'
 import Door from '../assets/Door'
 import User from '../assets/User';
 import Room from '../assets/Room';
+import { Actions } from 'react-native-router-flux';
 
 const MainMenu = () => {
     return (
@@ -13,22 +14,22 @@ const MainMenu = () => {
                 <Text style={styles.textHeader}>Menu główne</Text>
             </View>
             <View style={styles.Background}>
-                <View style={styles.block}>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.configureOrder()}>
                     <Toast width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Tosty</Text>
-                </View>
-                <View style={styles.block}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.block} >
                     <User width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Profil</Text>
-                </View>
-                <View style={styles.block}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.orderList()}>
                     <Room width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Pokoje</Text>
-                </View>
-                <View style={styles.block}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.block} >
                     <Door width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Wyjście</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         </View>
     )

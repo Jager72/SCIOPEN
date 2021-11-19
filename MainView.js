@@ -1,11 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import {Provider,connect} from 'react-redux';
+import {connect} from 'react-redux';
+import { Router, Scene } from 'react-native-router-flux'
 import MainMenu from './modules/MainMenu';
-import ConfigureOrder from './modules/ConfigureOrder'
-import MenuBar from './modules/MenuBar'
 import Login from './modules/Login'
+import ConfigureOrder from "./modules/ConfigureOrder";
+import OrderList from "./modules/OrderList";
+
 
 const MainView = props => {
     if (!props.user.isLogged){
@@ -15,7 +16,13 @@ const MainView = props => {
     }
     return (
         <View style={styles.container}>
-            <MainMenu/>
+            <Router>
+                <Scene key={'root'}>
+                    <Scene key={'mainMenu'} component={MainMenu} title={'Main Menu'} initial={true}/>
+                    <Scene key={'configureOrder'} component={ConfigureOrder} title={'Configure Order'} />
+                    <Scene key={'orderList'} component={OrderList} title={'Order List'}/>
+                </Scene>
+            </Router>
         </View>
     );
 }
