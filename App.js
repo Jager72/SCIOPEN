@@ -5,6 +5,7 @@ import MenuBar from './modules/MenuBar'
 import TostElementInput from './modules/ConfigureOrder/TostElementInput'
 import TostElementBool from './modules/ConfigureOrder/TostElementBool'
 import MainView from './MainView'
+import OrderList from './modules/OrderList'
 import { color } from './helpers/styles';
 import {Provider} from "react-redux";
 import {store} from "./actions/store";
@@ -14,7 +15,7 @@ export default function App() {
       <Provider store={store}>
         <SafeAreaView style={styles.container}>
           <StatusBar style="auto" />
-          <MainView/>
+          <OrderList/>
         </SafeAreaView>
       </Provider>
   );
