@@ -1,13 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Button, View, SafeAreaView } from 'react-native';
-import MenuBar from './modules/MenuBar'
-import TostElementInput from './modules/ConfigureOrder/TostElementInput'
-import TostElementBool from './modules/ConfigureOrder/TostElementBool'
+import { StyleSheet, SafeAreaView } from 'react-native';
 import MainView from './MainView'
 import { color } from './helpers/styles';
 import {Provider} from "react-redux";
 import {store} from "./actions/store";
+
 
 export default function App() {
   return (
