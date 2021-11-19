@@ -10,13 +10,12 @@ import Login from './modules/Login'
 const MainView = props => {
     if (!props.user.isLogged){
         return (
-           <MainMenu/> //<Login/>
+           <Login/>
         );
     }
     return (
         <View style={styles.container}>
-            <MenuBar currentPageTitle={'TOSTY'}/>
-            <MainMenu/>  
+            <MainMenu/>
         </View>
     );
 }
