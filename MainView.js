@@ -6,6 +6,7 @@ import {Provider,connect} from 'react-redux';
 
 import ConfigureOrder from './modules/ConfigureOrder'
 import ClassroomManager from './modules/ClassroomManager'
+import MyProfile from './modules/MyProfile'
 import MenuBar from './modules/MenuBar'
 import Login from './modules/Login'
 
@@ -18,7 +19,7 @@ const MainView = props => {
     return (
         <View style={styles.container}>
             
-            <ClassroomManager/>
+            <MyProfile/>
         </View>
     );
 }
