@@ -1,42 +1,31 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import {color} from '../helpers/styles';
-import Toast from '../assets/Toast'
-import Door from '../assets/Door'
-import User from '../assets/User';
-import Room from '../assets/Room';
+import {color} from '../../helpers/styles';
+import Toast from '../../assets/Toast'
+import List from '../../assets/List';
 import { Actions } from 'react-native-router-flux';
-import { BackHandler } from 'react-native';
 
-const MainMenu = () => {
+const ToastSubMenu = () => {
     return (
         <View style={styles.container}>
             <View style={styles.titlewraper}>
-                <Text style={styles.textHeader}>Menu główne</Text>
+                <Text style={styles.textHeader}>Tosty</Text>
             </View>
             <View style={styles.Background}>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.toastSubMenu()}>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.configureOrder()}>
                     <Toast width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Tosty</Text>
+                    <Text style={styles.textHeader}>Zamów!</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.block} onPress={()=>Actions.orderList()}>
-                    <User width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Profil</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.classroomManager()}>
-                    <Room width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Pokoje</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>BackHandler.exitApp()}>
-                    <Door width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Wyjście</Text>
+                    <List width="60%" height="60%"/>
+                    <Text style={styles.textHeader}>Zamówienia</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-export default MainMenu;
+export default ToastSubMenu;
 
 const styles = StyleSheet.create({
     Background: {
@@ -46,8 +35,8 @@ const styles = StyleSheet.create({
         alignContent: "space-around",
     },
     block: {
-        width: "45%",
-        height: "40%",
+        width: "65%",
+        height: "44%",
         marginTop: "2%",
         backgroundColor: color.primaryColor,
         borderRadius: 30,
