@@ -7,7 +7,7 @@ import Login from './modules/Login'
 import ConfigureOrder from "./modules/ConfigureOrder";
 import OrderList from "./modules/OrderList";
 import ClassroomManager from "./modules/ClassroomManager";
-
+import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
 
 const MainView = props => {
     if (!props.user.isLogged){
@@ -23,6 +23,7 @@ const MainView = props => {
                     <Scene key={'configureOrder'} component={ConfigureOrder} title={'Configure Order'} />
                     <Scene key={'orderList'} component={OrderList} title={'Order List'}/>
                     <Scene key={'classroomManager'} component={ClassroomManager} title={'Classroom Manager'}/>
+                    <Scene key={'toastSubMenu'} component={ToastSubMenu} title={'Toast Sub Menu'}/>
                 </Scene>
             </Router>
         </View>
