@@ -2,12 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {connect} from 'react-redux';
 import { Router, Scene } from 'react-native-router-flux'
+
 import MainMenu from './modules/MainMenu';
 import Login from './modules/Login'
 import ConfigureOrder from "./modules/ConfigureOrder";
 import OrderList from "./modules/OrderList";
 import ClassroomManager from "./modules/ClassroomManager";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
+import MyProfile from './modules/MyProfile'
 
 const MainView = props => {
     if (!props.user.isLogged){
