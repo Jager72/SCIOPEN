@@ -1,53 +1,55 @@
 import React from 'react';
-import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
-import AvailableClass from "./ClassroomManager/AvailableClass";
-import NotAvailableClass from "./ClassroomManager/NotAvailableClass";
-import SelectedClass from "./ClassroomManager/SelectedClass";
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import Classroom from "./ClassroomManager/Classroom";
 import {color} from "../helpers/styles";
-import { AlignLeft, AlignRight } from 'react-native-feather';
+import DATA1 from "./ClassroomManager/SampleDataAvailableRooms";
+import DATA2 from "./ClassroomManager/SampleDataNotAvailableRooms";
+import DATA3 from "./ClassroomManager/SampleDataUsersRoom";
 
 export default function ClassroomManager(){
     return(
-        <View style={styles.container}>
 
+        <View style={styles.container}>
             <View style={styles.Header}>
                 <Text style={styles.textHeader}>Sale</Text>
-                <Button style={styles.resetButton} title="Resetuj"/>
             </View>
-
-            <View style={styles.Separator1}>
-                <Text style={styles.textSeparator}>Wybrana sala:</Text>
-            </View>
-            
-            <SelectedClass classNumber={"301"} description={"Zarabianie kabli ethernet"}/>
-
+            {DATA3.length != 0 ?
+                <View>
+                    <View style={styles.Separator1}>
+                        <Text style={styles.textSeparator}>Wybrana sala:</Text>
+                    </View>
+                    {
+                        DATA3.map((item) => {
+                            return (
+                            <Classroom item={item} key={4} userID={5}/*5 is example*/></Classroom>
+                            );
+                        })
+                    }</View> : null
+            }
             <ScrollView>
                 <View style={styles.Separator2}>
                     <Text style={styles.textSeparator}>Wolne sale:</Text>
                 </View>
-                
-                <AvailableClass classNumber={"101"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <AvailableClass classNumber={"102"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <AvailableClass classNumber={"105"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
-                <AvailableClass classNumber={"201"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <AvailableClass classNumber={"203"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <AvailableClass classNumber={"204"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
-                <AvailableClass classNumber={"303"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
-                <AvailableClass classNumber={"304"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
+                {
+                    DATA1.map((item) => {
+                        return (
+                        <Classroom item={item} key={item.id}></Classroom>
+                        );
+                    })
+                }
 
                 <View style={styles.Separator3}>
                     <Text style={styles.textSeparator}>Zajęte sale:</Text>
                 </View>
-
-                <NotAvailableClass classNumber={"103"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <NotAvailableClass classNumber={"106"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <NotAvailableClass classNumber={"205"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
-                <NotAvailableClass classNumber={"202"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                <NotAvailableClass classNumber={"302"} description={"Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis Opis "}/>
-                <NotAvailableClass classNumber={"305"} description={"Coś tam Coś tam Coś tam Coś tam Coś tam "}/>
-                       
+                {
+                    DATA2.map((item) => {
+                        return (
+                        <Classroom item={item} key={item.id}></Classroom>
+                        );
+                    })
+                }
+            
             </ScrollView>
-               
         </View>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, Dimensions, Text, View, FlatList, TouchableOpacity, SectionList} from 'react-native';
 import {color} from "../helpers/styles";
 import Feather from 'react-native-vector-icons/Feather';
 import Cheese from "../assets/Cheese";
@@ -21,7 +21,15 @@ const addOrder = (order) => {
     console.log(UserOrders.length);
 }
 
-const UserOrders =[];
+const UserOrders =[
+    {
+    id: '4',
+    cheese: 3,
+    ham: 2,
+    ketchup: true,
+    quantity: 2,
+    state: 'preparing',
+  }];
 
 const renderItem = ({ item }) => (
     <View  style={item.state==='waiting' ?  styles.itemW : item.state==='preparing' ? styles.itemP : styles.itemD}>
@@ -61,8 +69,22 @@ const renderItem = ({ item }) => (
         </View>
         <View style={styles.itemMargin}>
             <View style={styles.itemRight}>
+            {item.state == 'preparing' ?
                 <TouchableOpacity
-                    onPress={() => {addOrder({item})}}
+                    onPress={() => {/*Change state to 'done'*/}}
+                    style={styles.button}
+                    > 
+                    <Feather
+                        name="arrow-down-circle"
+                        color="#EBEBEB"
+                        size={45}
+                    />
+                </TouchableOpacity>
+            :null}
+            {item.state == 'waiting' ?
+                <TouchableOpacity
+                    onPress={() => {/*Change state to 'preparing' and set cookId*/}}
+                    style={styles.button}
                 >
                 <Feather
                     name="arrow-up-circle"
@@ -70,6 +92,19 @@ const renderItem = ({ item }) => (
                     size={45}
                 />
                 </TouchableOpacity>
+            :null}
+            {item.state == 'done' ?
+                <TouchableOpacity
+                    onPress={() => {/*Change state to 'delivered'*/}}
+                    style={styles.button}
+                >
+                <Feather
+                    name="arrow-right-circle"
+                    color="#EBEBEB"
+                    size={45}
+                />
+                </TouchableOpacity>
+            :null}
             </View>
         </View>
     </View>
@@ -81,13 +116,24 @@ export default function OrderList(){
             <View style={styles.top}>
                 <Text style={styles.title}>Aktualne Zamówienia</Text>
             </View>
-            <View style={styles.listHolder}>
-                <FlatList
-                    style={styles.list}
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
+            <View style={styles.main}>
+                {UserOrders.length != 0 ?
+                <View style={styles.ordersInPreparation}>
+                    <FlatList
+                        style={styles.list}
+                        data={UserOrders}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                    />
+                </View>:null}
+                <View style={styles.listHolder}>
+                    <FlatList
+                        style={styles.list}
+                        data={DATA}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                    />
+                </View>
             </View>
             <View style={styles.bottom}>
                 <TouchableOpacity
@@ -112,6 +158,24 @@ export default function OrderList(){
 }
 
 const styles = StyleSheet.create({
+    button:{
+        backgroundColor: color.highlightColor,
+        borderRadius: 100,
+    },
+    ordersInPreparation: {
+        flex:0,
+        width:'100%',
+        borderBottomColor: color.highlightColor,
+        borderBottomWidth: 5,
+        marginBottom: 5,
+        paddingTop:5,
+        paddingBottom:5,
+    },
+    listHolder: {
+        flex:1,
+        height:'100%',
+        width:'100%',
+    },
     container: {
         flex:1,
         alignItems: 'center',
@@ -121,7 +185,6 @@ const styles = StyleSheet.create({
         backgroundColor: color.highlightColor,
         height:'100%',
         width:'100%',
-        marginBottom:5,
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center'
@@ -131,7 +194,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 35,
     },
-    listHolder: {
+    main: {
         flex:6.2,
         height:'100%',
         width:'100%',

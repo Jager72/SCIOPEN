@@ -24,14 +24,6 @@ const DATA = [
       state: 'waiting',
     },
     {
-      id: '4',
-      cheese: 3,
-      ham: 2,
-      ketchup: true,
-      quantity: 2,
-      state: 'preparing',
-    },
-    {
       id: '5',
       cheese: 1,
       ham: 1,
@@ -61,7 +53,7 @@ const DATA = [
       ham: 1,
       ketchup: false,
       quantity: 1,
-      state: 'preparing',
+      state: 'waiting',
     },
     {
       id: '9',
