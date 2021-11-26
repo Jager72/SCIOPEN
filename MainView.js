@@ -1,25 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import {Provider,connect} from 'react-redux';
+import {connect} from 'react-redux';
+import { Router, Scene } from 'react-native-router-flux'
 
-
-import ConfigureOrder from './modules/ConfigureOrder'
-import ClassroomManager from './modules/ClassroomManager'
-import MyProfile from './modules/MyProfile'
-import MenuBar from './modules/MenuBar'
+import MainMenu from './modules/MainMenu';
 import Login from './modules/Login'
+import ConfigureOrder from "./modules/ConfigureOrder";
+import OrderList from "./modules/OrderList";
+import ClassroomManager from "./modules/ClassroomManager";
+import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
+import MyProfile from './modules/MyProfile'
 
 const MainView = props => {
     if (!props.user.isLogged){
         return (
-            <Login/>
+           <Login/>
         );
     }
     return (
         <View style={styles.container}>
-            
-            <MyProfile/>
+            <Router>
+                <Scene key={'root'}>
+                    <Scene key={'mainMenu'} component={MainMenu} title={'Main Menu'} initial={true}/>
+                    <Scene key={'configureOrder'} component={ConfigureOrder} title={'Configure Order'} />
+                    <Scene key={'orderList'} component={OrderList} title={'Order List'}/>
+                    <Scene key={'classroomManager'} component={ClassroomManager} title={'Classroom Manager'}/>
+                    <Scene key={'toastSubMenu'} component={ToastSubMenu} title={'Toast Sub Menu'}/>
+                </Scene>
+            </Router>
         </View>
     );
 }
