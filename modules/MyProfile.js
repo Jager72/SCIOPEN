@@ -3,7 +3,7 @@ import {Image,  ScrollView, StyleSheet, Text, View} from 'react-native';
 import {color} from "../helpers/styles";
 import Statistics from "./MyProfile/Statistics";
 
-var nick = "JohnXina";
+var nick = "ZongXina";
 var role = "Kucharz";
 var id = 2137;
 
@@ -18,7 +18,7 @@ export default function MyProfile(){
             </View>
 
             <View style={styles.Profile} >
-                
+
                 <View style={styles.PhotoView}>
                     <Image
                         source={photo}
@@ -33,7 +33,7 @@ export default function MyProfile(){
                     <Text style={styles.Text2}>Rola: </Text>
                     <Text style={styles.Text1}>{role}</Text>
                 </View>
-                
+
             </View>
 
             <View style={styles.Stats} >
@@ -53,11 +53,11 @@ export default function MyProfile(){
                     <Statistics Name={"Cośtam"} Value={343}/>
                     <Statistics Name={"Cośtam"} Value={44}/>
                     <Statistics Name={"Cośtam"} Value={11}/>
-                       
+
                  </ScrollView>
 
             </View>
-               
+
         </View>
     );
 }
@@ -89,16 +89,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: '8%',
         marginBottom: '5%',
-        
+
     },
     Photo: {
-        width: 175, 
+        width: 175,
         height: 175,
         borderRadius: 30,
         borderWidth: 8,
         borderColor: color.primaryColor,
     },
-    Info: 
+    Info:
     {
         width: '100%',
         minHeight: 50,

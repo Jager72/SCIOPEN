@@ -19,7 +19,7 @@ const MainMenu = () => {
                     <Toast width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Tosty</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.orderList()}>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.myProfile()}>
                     <User width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Profil</Text>
                 </TouchableOpacity>

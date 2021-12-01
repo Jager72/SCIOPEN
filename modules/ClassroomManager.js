@@ -8,12 +8,11 @@ import DATA3 from "./ClassroomManager/SampleDataUsersRoom";
 
 export default function ClassroomManager(){
     return(
-
         <View style={styles.container}>
             <View style={styles.Header}>
                 <Text style={styles.textHeader}>Sale</Text>
             </View>
-            {DATA3.length != 0 ?
+            {DATA3.length !== 0 ?
                 <View>
                     <View style={styles.Separator1}>
                         <Text style={styles.textSeparator}>Wybrana sala:</Text>
@@ -21,7 +20,7 @@ export default function ClassroomManager(){
                     {
                         DATA3.map((item) => {
                             return (
-                            <Classroom item={item} key={4} userID={5}/*5 is example*/></Classroom>
+                            <Classroom item={item} key={4} userID={5}/*5 is example*//>
                             );
                         })
                     }</View> : null
@@ -33,22 +32,20 @@ export default function ClassroomManager(){
                 {
                     DATA1.map((item) => {
                         return (
-                        <Classroom item={item} key={item.id}></Classroom>
+                        <Classroom item={item} key={item.id}/>
                         );
                     })
                 }
-
                 <View style={styles.Separator3}>
                     <Text style={styles.textSeparator}>Zajęte sale:</Text>
                 </View>
                 {
                     DATA2.map((item) => {
                         return (
-                        <Classroom item={item} key={item.id}></Classroom>
+                        <Classroom item={item} key={item.id}/>
                         );
                     })
                 }
-            
             </ScrollView>
         </View>
     );
@@ -62,7 +59,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-around",
     },
-   
+
     textHeader: {
         flex: 3,
         textAlign: "left",
@@ -80,26 +77,26 @@ const styles = StyleSheet.create({
         backgroundColor: color.primaryColor,
         marginTop: 0,
         justifyContent: 'center'
-        
+
     },
     Separator2: {
         height: 30,
         backgroundColor: "#247800",
         justifyContent: 'center'
-        
+
     },
     Separator3: {
         height: 30,
         backgroundColor: "#804000",
         justifyContent: 'center'
-        
+
     },
     textSeparator: {
         textAlign: "left",
         color: 'white',
         fontSize: 15,
         marginLeft: "10%",
-        
+
     },
     container: {
         flex:1,
