@@ -1,12 +1,31 @@
 import React, { useState } from "react";
-import {StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from "react-native";
 import { color } from "../../helpers/styles";
 import Feather from 'react-native-vector-icons/Feather';
+import {connect} from 'react-redux';
+import * as roomActions from '../../actions/rooms';
 
-const Classroom = ({ item, userID }) => {
+const Classroom = props => {
+  var item = props.item;
+  console.log(props.visitedRooms.indexOf(item.roomNumber) > -1)
+  const leaveRoom = (number) => {
+    props.setCurrentRoom(null);
+    props.addVisitedRoom(number);
+    /*Change state to 'free'*/
+  }
+  
+  
+  const enterRoom = (number) => {
+    props.setCurrentRoom(number);
+    /*Change state to 'busy'*/
+  }
+
   return (
-    <View style={item.state==='busy' && item.occupant !== userID ?  styles.notAvailableClass : styles.class}>
-
+    <View style={item.state==='busy' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) == -1 ?  styles.notAvailableClass 
+    : item.state==='busy' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedNotAvailableClass
+    : item.state==='free' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedClass
+    : styles.class
+    }>
       <Text style={styles.typeText}>{item.roomNumber}</Text>
 
       <View style={styles.Description}>
@@ -15,7 +34,7 @@ const Classroom = ({ item, userID }) => {
       <View style={styles.buttonHolder}>
           {item.state==='free' ?
           <TouchableOpacity
-          onPress={() => {/*Change state to 'busy' and occupant to value of userID*/}}
+          onPress={() => {props.currentRoom === null ? enterRoom(item.roomNumber) : Alert.alert('Błąd!', 'Masz już zajęty inny pokój!')}}
           style={styles.takeButton}
           >
             <Feather
@@ -24,7 +43,7 @@ const Classroom = ({ item, userID }) => {
                     size={45}
             />
           </TouchableOpacity> : 
-          item.state==='busy' && item.occupant !== userID ? 
+          item.state==='busy' && item.roomNumber !== props.currentRoom ? 
           <View style={styles.notAvailable}>
             <Feather
                     name="x-square"
@@ -33,7 +52,7 @@ const Classroom = ({ item, userID }) => {
             />
           </View> : 
           <TouchableOpacity
-          onPress={() => {/*Change state to 'free' and occupant to null*/}}
+          onPress={() => {leaveRoom(item.roomNumber)}}
           style={styles.releaseButton}
           >
             <Feather
@@ -51,7 +70,17 @@ const Classroom = ({ item, userID }) => {
   );
 };
 
-export default Classroom ;
+const mapStateToProps = state => ({
+  currentRoom: state.rooms.currentRoom,
+  visitedRooms: state.rooms.visitedRooms,
+})
+
+const mapActionsToProps = {
+  setCurrentRoom: roomActions.setCurrentRoom,
+  addVisitedRoom: roomActions.addVisitedRoom,
+}
+
+export default connect(mapStateToProps,mapActionsToProps)(Classroom);
 
 const styles = StyleSheet.create({
   releaseButton:{
@@ -62,6 +91,7 @@ const styles = StyleSheet.create({
       backgroundColor: color.highlightColor,
       borderRadius: 10,
   },
+
   class : {
     height: 90,
     flexDirection: "row",
@@ -79,6 +109,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 8,
     borderRadius: 25,
+  },
+
+  
+  visitedClass : {
+    height: 90,
+    flexDirection: "row",
+    backgroundColor: color.secondaryColor,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 8,
+    borderRadius: 25,
+    borderWidth:3,
+    borderColor: color.highlightColor,
+  },
+  visitedNotAvailableClass : {
+    height: 90,
+    flexDirection: "row",
+    backgroundColor: "#376382",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 8,
+    borderRadius: 25,
+    borderWidth:3,
+    borderColor: color.highlightColor,
   },
 
   typeText: {
