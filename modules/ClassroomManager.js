@@ -2,26 +2,28 @@ import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Classroom from "./ClassroomManager/Classroom";
 import {color} from "../helpers/styles";
-import DATA1 from "./ClassroomManager/SampleDataAvailableRooms";
-import DATA2 from "./ClassroomManager/SampleDataNotAvailableRooms";
-import DATA3 from "./ClassroomManager/SampleDataUsersRoom";
+import DATA from './ClassroomManager/SampleDataRooms';
+import {connect} from 'react-redux';
+import * as roomActions from '../actions/rooms';
 
-export default function ClassroomManager(){
+const ClassroomManager = props => {
     return(
         <View style={styles.container}>
             <View style={styles.Header}>
                 <Text style={styles.textHeader}>Sale</Text>
             </View>
-            {DATA3.length !== 0 ?
+            {props.currentRoom !== null ?
                 <View>
                     <View style={styles.Separator1}>
                         <Text style={styles.textSeparator}>Wybrana sala:</Text>
                     </View>
                     {
-                        DATA3.map((item) => {
+                        DATA.map((item) => {
+                            if(item.roomNumber == props.currentRoom){
                             return (
-                            <Classroom item={item} key={4} userID={5}/*5 is example*//>
+                            <Classroom item={item} key={item.roomNumber}/>
                             );
+                            }
                         })
                     }</View> : null
             }
@@ -30,26 +32,41 @@ export default function ClassroomManager(){
                     <Text style={styles.textSeparator}>Wolne sale:</Text>
                 </View>
                 {
-                    DATA1.map((item) => {
+                    DATA.map((item) => {
+                        if(item.state==='free' && item.roomNumber !== props.currentRoom){
                         return (
-                        <Classroom item={item} key={item.id}/>
-                        );
+                        <Classroom item={item} key={item.roomNumber}/>
+                        )}
                     })
                 }
                 <View style={styles.Separator3}>
                     <Text style={styles.textSeparator}>Zajęte sale:</Text>
                 </View>
                 {
-                    DATA2.map((item) => {
+                    DATA.map((item) => {
+                        if(item.state==='busy' && item.roomNumber !== props.currentRoom){
                         return (
-                        <Classroom item={item} key={item.id}/>
-                        );
+                        <Classroom item={item} key={item.roomNumber}/>
+                        )}
                     })
                 }
             </ScrollView>
         </View>
     );
 }
+
+
+const mapStateToProps = state => ({
+    currentRoom: state.rooms.currentRoom,
+    visitedRooms: state.rooms.visitedRooms,
+  })
+  
+  const mapActionsToProps = {
+    setCurrentRoom: roomActions.setCurrentRoom,
+    addVisitedRoom: roomActions.addVisitedRoom,
+  }
+  
+  export default connect(mapStateToProps,mapActionsToProps)(ClassroomManager);
 
 const styles = StyleSheet.create({
     Header: {
