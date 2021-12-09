@@ -5,4 +5,6 @@ export const ACTION_TYPES = {
     LOGOUT: 'logout',
     SET_CURRENT_ROOM: 'setCurrentRoom',
     ADD_VISITED_ROOM: 'addVisitedRoom',
+    SET_CURRENT_ROOM_EDIT: 'setCurrentRoomEdit',
+    SET_ROOM_CREATING_STATUS: 'setRoomCreatingStatus',
 }
