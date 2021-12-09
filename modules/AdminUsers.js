@@ -1,13 +1,13 @@
 import React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, Text, TextInput, View} from 'react-native';
-import Classroom from "./ClassroomEditor/Classroom";
+import {Alert, Modal,ScrollView, StyleSheet, TouchableOpacity, Text, TextInput, View, Button} from 'react-native';
+import User from "./AdminUsers/User";
 import {color} from "../helpers/styles";
-import DATA from './ClassroomManager/SampleDataRooms';
+import DATA from './AdminUsers/UsersList';
 import {connect} from 'react-redux';
-import * as editActions from '../actions/roomEditor';
+import * as editActions from '../actions/userEditor';
 import Feather from 'react-native-vector-icons/Feather';
 
-const ClassroomManager = props => {
+const AdminUsers = props => {
     const openCreatingPanel = () => {
         props.setRoomCreatingStatus()
     }
@@ -16,55 +16,80 @@ const ClassroomManager = props => {
         props.setRoomCreatingStatus()
     }
 
-    const createRoom = () => {
+    const createUser = () => {
         props.setRoomCreatingStatus()
     }
     return(
         <View style={styles.container}>
             <View style={styles.Header}>
-                <Text style={styles.textHeader}>Edytor Sal</Text>
+                <Text style={styles.textHeader}>Użytkownicy</Text>
             </View>
-            <ScrollView>
-                {
-                    DATA.map((item) => {
-                        return (
-                        <Classroom item={item} key={item.roomNumber}/>
-                        )
-                    })
-                }
-                {!props.creating ?
+
+             {!props.creating ?
             <TouchableOpacity 
             onPress={() => {openCreatingPanel()}}
             style={styles.button}>
-                <Text style={styles.textButton}>Dodaj salę</Text>
+                <Text style={styles.textButton}>Dodaj osobę</Text>
             </TouchableOpacity>
             :
-            <View style={styles.class}>
-                <TextInput
-                    autoCapitalize="none"
-                    keyboardType="numeric"
-                    style={styles.typeText}
-                    underlineColorAndroid="transparent"
-                    selectionColor={'white'}
-                    placeholder={'000'}
-                    placeholderTextColor="#D7D7D7"
-                    maxLength={3}
-                    //onChangeText={{}}
-                />
+            <View style={styles.user}>
+
+                <Text style={styles.idText}>#</Text>
         
-                <View style={styles.Description}>
+              
+                <View style={styles.Info}>
+                    <View style={styles.Info1}>
+                         <Text style={styles.infoTextHeader}>Nick:</Text>
+                    </View>
+                    <View style={styles.Info2}>
                     <TextInput
-                        style={styles.descriptionText}
+                        style={styles.infoText}
                         underlineColorAndroid="transparent"
                         selectionColor={'white'}
-                        placeholder={'Opis'}
+                        placeholder={'Nazwa'}
                         placeholderTextColor="#D7D7D7"
                         //onChangeText={{}}
                     />
+                     </View>
                 </View>
+
+                <View style={styles.Info}>
+                    <View style={styles.Info1}>
+                         <Text style={styles.infoTextHeader}>Rola:</Text>
+                    </View>
+                    <View style={styles.Info2}>
+                    <TextInput
+                        style={styles.infoText}
+                        underlineColorAndroid="transparent"
+                        selectionColor={'white'}
+                        placeholder={'Rola'}
+                        placeholderTextColor="#D7D7D7"
+                        //onChangeText={{}}
+                    />
+                     </View>
+                </View>
+
+                <View style={styles.Info}>
+                    <View style={styles.Info1}>
+                         <Text style={styles.infoTextHeader}>Pin:</Text>
+                    </View>
+                    <View style={styles.Info2}>
+                    <TextInput
+                        style={styles.infoText}
+                        keyboardType="numeric"
+                        underlineColorAndroid="transparent"
+                        selectionColor={'white'}
+                        placeholder={'Pin'}
+                        placeholderTextColor="#D7D7D7"
+                        //onChangeText={{}}
+                    />
+                     </View>
+                </View>
+
+
                 <View style={styles.buttonHolder}>
                     <TouchableOpacity
-                    onPress={() => {createRoom()}}
+                    onPress={() => {createUser()}}
                     style={styles.saveButton}
                     >
                         <Feather
@@ -86,13 +111,21 @@ const ClassroomManager = props => {
                 </View>
             </View>
             }
+
+            <ScrollView>
+                {
+                    DATA.map((item) => {
+                        return (
+                        <User item={item} key={item.id}/>
+                        )
+                    })
+                }
+               
             </ScrollView>
             
         </View>
     );
 }
-
-
 const mapStateToProps = state => ({
     currentRoom: state.roomEditor.currentRoom,
     creating: state.roomEditor.creating
@@ -102,8 +135,10 @@ const mapStateToProps = state => ({
     setCurrentRoomEdit: editActions.setCurrentRoomEdit,
     setRoomCreatingStatus: editActions.setRoomCreatingStatus
   }
+
+
   
-  export default connect(mapStateToProps,mapActionsToProps)(ClassroomManager);
+  export default connect(mapStateToProps,mapActionsToProps)(AdminUsers);
 
 const styles = StyleSheet.create({
     Header: {
@@ -126,27 +161,6 @@ const styles = StyleSheet.create({
         padding:2,
     },
 
-    typeText: {
-        flex: 1.3,
-        color:"white",
-        textAlign: "center",
-        fontWeight: "bold",
-        fontSize: 25,
-      },
-      Description: {
-        flex: 3,
-        backgroundColor: "#064c7d",
-        height: "90%",
-        borderRadius: 5,
-        color: 'white',
-        justifyContent: 'center'
-      },
-      descriptionText: {
-        color: 'white',
-        textAlign: "center",
-        fontSize: 15,
-    
-      },
       buttonHolder: {
           flex:1.3,
           alignItems: 'center',
@@ -155,7 +169,47 @@ const styles = StyleSheet.create({
           flexDirection: 'column',
       },
 
-    class : {
+      Info: {
+        flex: 1.1,
+        backgroundColor: "#064c7d",
+        height: "80%",
+        borderRadius: 4,
+        margin: 1,
+        color: 'white',
+        justifyContent: 'center'
+      },
+      Info1: {
+        flex: 1,
+        backgroundColor: '#043557',
+        borderTopLeftRadius: 4,
+        borderTopRightRadius: 4,
+      },
+      Info2: {
+        flex: 3,
+        justifyContent: 'center'
+      },
+      infoTextHeader: {
+        color: 'white',
+        textAlign: "center",
+        fontSize: 15,
+    
+      },
+      infoText: {
+        color: 'white',
+        textAlign: "center",
+        fontSize: 15,
+    
+      },
+
+      idText: {
+        flex: 1.2,
+        color:"white",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 20,
+      },
+
+      user : {
         height: 100,
         flexDirection: "row",
         backgroundColor: color.secondaryColor,
@@ -163,16 +217,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         margin: 8,
         borderRadius: 25,
-    },
+      },
 
     button: {
         height: 60,
         flexDirection: "row",
         backgroundColor: color.highlightColor,
+        borderColor: "#477d00",
+        borderWidth: 5,
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 25,
+        borderRadius: 20,
         margin: 8,
+        marginBottom: 8,
     },
 
     textButton: {
@@ -184,12 +241,11 @@ const styles = StyleSheet.create({
     },
 
     textHeader: {
-        flex: 3,
-        textAlign: "left",
+        flex: 1,
+        textAlign: "center",
         color: 'white',
         fontWeight: 'bold',
         fontSize: 30,
-        marginLeft: "10%",
     },
     resetButton: {
         flex: 2,

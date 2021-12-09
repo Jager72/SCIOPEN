@@ -1,12 +1,14 @@
 import React from 'react';
 import {StyleSheet, Dimensions, Text, View, FlatList, TouchableOpacity, SectionList} from 'react-native';
 import {color} from "../helpers/styles";
+import { Actions } from 'react-native-router-flux';
 import Feather from 'react-native-vector-icons/Feather';
 import Cheese from "../assets/Cheese";
 import Ham from "../assets/Ham";
 import Ketchup from "../assets/Ketchup";
 import Toast from "../assets/Toast";
 import DATA from "./SampleData";
+
 const images = {
   cheese: <Cheese width={25} height={25}/>,
   ham: <Ham width={25} height={25}/>,
@@ -15,7 +17,7 @@ const images = {
 }
 
 const addOrder = (order) => {
-    if(UserOrders.length == 0){
+    if(UserOrders.length === 0){
         UserOrders.push(order);
     }
     console.log(UserOrders.length);
@@ -69,11 +71,11 @@ const renderItem = ({ item }) => (
         </View>
         <View style={styles.itemMargin}>
             <View style={styles.itemRight}>
-            {item.state == 'preparing' ?
+            {item.state === 'preparing' ?
                 <TouchableOpacity
                     onPress={() => {/*Change state to 'done'*/}}
                     style={styles.button}
-                    > 
+                    >
                     <Feather
                         name="arrow-down-circle"
                         color="#EBEBEB"
@@ -81,7 +83,7 @@ const renderItem = ({ item }) => (
                     />
                 </TouchableOpacity>
             :null}
-            {item.state == 'waiting' ?
+            {item.state === 'waiting' ?
                 <TouchableOpacity
                     onPress={() => {/*Change state to 'preparing' and set cookId*/}}
                     style={styles.button}
@@ -93,7 +95,7 @@ const renderItem = ({ item }) => (
                 />
                 </TouchableOpacity>
             :null}
-            {item.state == 'done' ?
+            {item.state === 'done' ?
                 <TouchableOpacity
                     onPress={() => {/*Change state to 'delivered'*/}}
                     style={styles.button}
@@ -117,7 +119,7 @@ export default function OrderList(){
                 <Text style={styles.title}>Aktualne Zamówienia</Text>
             </View>
             <View style={styles.main}>
-                {UserOrders.length != 0 ?
+                {UserOrders.length !== 0 ?
                 <View style={styles.ordersInPreparation}>
                     <FlatList
                         style={styles.list}
@@ -136,22 +138,20 @@ export default function OrderList(){
                 </View>
             </View>
             <View style={styles.bottom}>
-                <TouchableOpacity
-                    onPress={() => {/*Back to Menu*/}}
-                    >
-                        <View style={styles.row2}>
-                            <View style={styles.row3}>
-                                <Text style={styles.bottomText}>
-                                    <Feather
-                                    name="arrow-left"
-                                    color="#EBEBEB"
-                                    size={25}
-                                    />
-                                    Powrót
-                                </Text>
-                            </View>
+                <TouchableOpacity onPress={() => {Actions.mainMenu()}}>
+                    <View style={styles.row2}>
+                        <View style={styles.row3}>
+                            <Text style={styles.bottomText}>
+                                <Feather
+                                name="arrow-left"
+                                color="#EBEBEB"
+                                size={25}
+                                />
+                                Powrót
+                            </Text>
                         </View>
-                    </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     );

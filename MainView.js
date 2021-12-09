@@ -9,7 +9,8 @@ import ConfigureOrder from "./modules/ConfigureOrder";
 import OrderList from "./modules/OrderList";
 import ClassroomManager from "./modules/ClassroomManager";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
-import MyProfile from './modules/MyProfile'
+import MyProfile from './modules/MyProfile';
+import AdminUsers from './modules/AdminUsers';
 
 const MainView = props => {
     if (!props.user.isLogged){
@@ -21,11 +22,13 @@ const MainView = props => {
         <View style={styles.container}>
             <Router>
                 <Scene key={'root'}>
-                    <Scene key={'mainMenu'} component={MainMenu} title={'Main Menu'} initial={true}/>
-                    <Scene key={'configureOrder'} component={ConfigureOrder} title={'Configure Order'} />
-                    <Scene key={'orderList'} component={OrderList} title={'Order List'}/>
-                    <Scene key={'classroomManager'} component={ClassroomManager} title={'Classroom Manager'}/>
-                    <Scene key={'toastSubMenu'} component={ToastSubMenu} title={'Toast Sub Menu'}/>
+                    <Scene key={'mainMenu'} component={MainMenu} title={'Main Menu'} initial={true} hideNavBar={true}/>
+                    <Scene key={'configureOrder'} component={ConfigureOrder} title={'Configure Order'} hideNavBar={true}/>
+                    <Scene key={'orderList'} component={OrderList} title={'Order List'} hideNavBar={true}/>
+                    <Scene key={'classroomManager'} component={ClassroomManager} title={'Classroom Manager'} hideNavBar={true}/>
+                    <Scene key={'toastSubMenu'} component={ToastSubMenu} title={'Toast Sub Menu'} hideNavBar={true}/>
+                    <Scene key={'myProfile'} component={MyProfile} title={'My Profile'} hideNavBar={true}/>
+                    <Scene key={'adminUsers'} component={AdminUsers} title={'Admin Users'} hideNavBar={true}/>
                 </Scene>
             </Router>
         </View>

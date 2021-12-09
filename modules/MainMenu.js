@@ -19,13 +19,12 @@ const MainMenu = () => {
                     <Toast width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Tosty</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.orderList()}>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.classroomManager()}>
                     <User width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Profil</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.classroomManager()}>
-                    <Room width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Pokoje</Text>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.adminUsers()}>
+                    <Text style={styles.textHeader}>AdminUsers</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.block} onPress={()=>BackHandler.exitApp()}>
                     <Door width="60%" height="60%"/>
