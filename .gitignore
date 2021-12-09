@@ -1,0 +1,17 @@
+FRONTEND/node_modules/
+FRONTEND/.expo/
+FRONTEND/dist/
+FRONTEND/.idea
+FRONTEND/npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+FRONTEND/web-build/
+FRONTEND/package-lock.json
+FRONTEND/yarn.lock
+
+# macOS
+.DS_Store
