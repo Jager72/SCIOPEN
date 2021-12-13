@@ -19,7 +19,7 @@ const ClassroomManager = props => {
                     </View>
                     {
                         DATA.map((item) => {
-                            if(item.roomNumber == props.currentRoom){
+                            if(item.roomNumber === props.currentRoom){
                             return (
                             <Classroom item={item} key={item.roomNumber}/>
                             );
@@ -60,12 +60,12 @@ const mapStateToProps = state => ({
     currentRoom: state.rooms.currentRoom,
     visitedRooms: state.rooms.visitedRooms,
   })
-  
+
   const mapActionsToProps = {
     setCurrentRoom: roomActions.setCurrentRoom,
     addVisitedRoom: roomActions.addVisitedRoom,
   }
-  
+
   export default connect(mapStateToProps,mapActionsToProps)(ClassroomManager);
 
 const styles = StyleSheet.create({
