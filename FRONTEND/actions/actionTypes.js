@@ -5,4 +5,5 @@ export const ACTION_TYPES = {
     LOGOUT: 'logout',
     SET_CURRENT_ROOM: 'setCurrentRoom',
     ADD_VISITED_ROOM: 'addVisitedRoom',
+    DELETE_ROOM: 'deleteRoom',
 }
