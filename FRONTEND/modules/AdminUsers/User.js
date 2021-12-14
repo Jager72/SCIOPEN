@@ -10,7 +10,7 @@ import { Actions } from 'react-native-router-flux';
 
 const User = props => {
 
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [selectedValue, setSelectedValue] = useState(props.item.role);
 
   var item = props.item;
   const editUser = (id) => {
