@@ -11,6 +11,7 @@ import ClassroomManager from "./modules/ClassroomManager";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
 import MyProfile from './modules/MyProfile';
 import * as orderActions from './actions/order';
+import AdminUsers from './modules/AdminUsers';
 
 const MainView = props => {
 
@@ -33,6 +34,7 @@ const MainView = props => {
                     <Scene key={'classroomManager'} component={ClassroomManager} title={'Classroom Manager'} hideNavBar={true}/>
                     <Scene key={'toastSubMenu'} component={ToastSubMenu} title={'Toast Sub Menu'} hideNavBar={true}/>
                     <Scene key={'myProfile'} component={MyProfile} title={'My Profile'} hideNavBar={true}/>
+                    <Scene key={'adminUsers'} component={AdminUsers} title={'Admin Users'} hideNavBar={true}/>
                 </Scene>
             </Router>
         </View>
