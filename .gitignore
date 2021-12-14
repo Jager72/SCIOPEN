@@ -17,5 +17,4 @@ FRONTEND/yarn.lock
 .DS_Store
 
 BACKEND/.idea/
-BACKEND/bin/
 BACKEND/obj/
