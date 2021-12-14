@@ -9,8 +9,8 @@ import * as editActions from '../actions/userEditor';
 import Feather from 'react-native-vector-icons/Feather';
 
 const AdminUsers = props => {
-    
-    const [selectedValue, setSelectedValue] = useState();
+
+    const [selectedValue, setSelectedValue] = useState("java");
 
     const [data, setData] = React.useState({
         newUserId: null, // ID
@@ -31,6 +31,7 @@ const AdminUsers = props => {
         });
     }
     const userRoleChange = (val) => {
+
         setData({
             ...data,
             newUserRole: val,
@@ -77,6 +78,7 @@ const AdminUsers = props => {
         userPinChange(null)
         props.setUserCreatingStatus()
     }
+
 
     return(
         <View style={styles.container}>
@@ -134,7 +136,7 @@ const AdminUsers = props => {
                         textAlign: "center",
                         fontSize: 15,
                         }}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue), (itemValue, itemIndex) => userRoleChange(itemValue)}
+                        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);  userRoleChange(itemValue)}}
                         >
                             <Picker.Item label="Rola" value=""/>
                         {

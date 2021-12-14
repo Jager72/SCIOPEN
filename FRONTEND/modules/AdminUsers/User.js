@@ -10,6 +10,8 @@ import { Actions } from 'react-native-router-flux';
 
 const User = props => {
 
+  const [selectedValue, setSelectedValue] = useState("java");
+
   var item = props.item;
   const editUser = (id) => {
     if(props.currentUser === null){
@@ -122,15 +124,14 @@ const User = props => {
         {item.id !== props.currentUser ?
           <Text style={styles.infoText}>{item.role}</Text>
           :
-         
           <Picker
-          selectedValue={item.role}
+          selectedValue={selectedValue}
           style={{ height: 300, width: 130, 
           color: 'white',
           textAlign: "center",
           fontSize: 15,
           }}
-          onValueChange={(itemValue, itemIndex) => userRoleChange(itemValue)}
+          onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);  userRoleChange(itemValue)}}
           >
             <Picker.Item label="Rola" value=""/>
             {
