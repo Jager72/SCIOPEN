@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {connect} from 'react-redux';
 import { Router, Scene } from 'react-native-router-flux'
