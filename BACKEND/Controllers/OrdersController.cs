@@ -28,6 +28,19 @@ namespace backend.Controllers
 
             return new JsonResult(dbList);
         }
+        
+        // GET: api/Orders/id
+        [HttpGet("orderId")]
+        public JsonResult GetOrderById(int id)
+        {
+            var client = new MongoClient(_configuration.GetConnectionString("con"));
+            
+            var filter = Builders<Orders>.Filter.Eq("orderId", id);
+
+            var dbList = client.GetDatabase("SCIOPEN").GetCollection<Orders>("orders").FindSync(filter);
+
+            return new JsonResult(dbList);
+        }
 
         // POST: api/Orders
         [HttpPost]
@@ -63,7 +76,7 @@ namespace backend.Controllers
             return new JsonResult("Success");
         }
 
-        // PUT: api/Orders
+        // DELETE: api/Orders
         [HttpDelete("_id")]
         public JsonResult DeleteOrder(string id)
         {

@@ -6,6 +6,7 @@ using backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace backend.Controllers
@@ -31,6 +32,19 @@ namespace backend.Controllers
 
             return new JsonResult(dbList);
         }
+        
+        // GET: api/Users/id
+        [HttpGet("orderId")]
+        public JsonResult GetUserById(int id)
+        {
+            var client = new MongoClient(_configuration.GetConnectionString("con"));
+            
+            var filter = Builders<Users>.Filter.Eq("userId", id);
+
+            var dbList = client.GetDatabase("SCIOPEN").GetCollection<Users>("users").FindSync(filter);
+
+            return new JsonResult(dbList);
+        }
 
         // POST: api/Users
         [HttpPost]
@@ -42,8 +56,38 @@ namespace backend.Controllers
 
             return new JsonResult("Success");
         }
+        
+        // PUT: api/User
+        [HttpPut]
+        public JsonResult EditUser(Users user)
+        {
+            MongoClient client = new MongoClient(_configuration.GetConnectionString("con"));
 
-        // GET: api/Users
+            var filter = Builders<Users>.Filter.Eq("_id", user.id);
+            var update = Builders<Users>.Update.Set("orderId", user.userId)
+                .Set("userId", user.name)
+                .Set("pin", user.pin)
+                .Set("role", user.role);
+
+            client.GetDatabase("SCIOPEN").GetCollection<Users>("users").UpdateOne(filter,update);
+
+            return new JsonResult("Success");
+        }
+
+        // DELETE: api/Users
+        [HttpDelete("_id")]
+        public JsonResult DeleteOrder(string id)
+        {
+            var client = new MongoClient(_configuration.GetConnectionString("con"));
+
+            var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
+
+            client.GetDatabase("SCIOPEN").GetCollection<Users>("users").DeleteOne(filter);
+
+            return new JsonResult("Success");
+        }
+        
+        // GET: api/Users/name/pin
         [HttpGet("{name}/{pin}")]
         public JsonResult Login(string name, string pin)
         {
