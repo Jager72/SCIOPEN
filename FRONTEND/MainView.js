@@ -9,9 +9,15 @@ import ConfigureOrder from "./modules/ConfigureOrder";
 import OrderList from "./modules/OrderList";
 import ClassroomManager from "./modules/ClassroomManager";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
-import MyProfile from './modules/MyProfile'
+import MyProfile from './modules/MyProfile';
+import * as orderActions from './actions/order';
 
 const MainView = props => {
+
+    useEffect(() => {
+        props.getOrders();
+    }, []);
+
     if (!props.user.isLogged){
         return (
            <Login/>
@@ -43,4 +49,8 @@ const mapStateToProps = state => ({
     user: state.user
 })
 
-export default connect(mapStateToProps)(MainView)
+const mapActionsToProps = {
+    getOrders: orderActions.fetchAll
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(MainView)

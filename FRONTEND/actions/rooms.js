@@ -1,4 +1,5 @@
 import {ACTION_TYPES} from "./actionTypes";
+import api from "api";
 
 export const setCurrentRoom = (roomNumber) => dispatch => {
     dispatch({

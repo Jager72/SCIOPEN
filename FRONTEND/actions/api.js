@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl='https://localhost:5001/';
 
 export default {
-    orders(url=baseUrl+'Orders/'){
+    order(url=baseUrl+'Orders/'){
         return{
             fetchAll:()=>axios.get(url),
             add:(order)=>axios.post(url,order),
