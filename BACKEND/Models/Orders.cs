@@ -25,6 +25,6 @@ namespace backend.Models
         
         public bool ketchup {get; set; }
         
-        public bool qantity {get; set; }
+        public bool quantity {get; set; }
     }
 }

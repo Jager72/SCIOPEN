@@ -41,24 +41,27 @@ namespace backend.Controllers
         }
 
         // PUT: api/Orders
-        /*
         [HttpPut]
         public JsonResult EditOrder(Orders order)
         {
             MongoClient client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Orders>.Filter.Eq("_id", order.Id);
-            var update = Builders<Orders>.Update.Set("name", order.Name)
-                .Set("cheese", order.Cheese)
-                .Set("ham",order.Ham)
-                .Set("butter",order.Butter)
-                .Set("ketchup",order.Ketchup)
-                .Set("status",order.Status);
+            var filter = Builders<Orders>.Filter.Eq("_id", order.id);
+            var update = Builders<Orders>.Update.Set("orderId", order.orderId)
+                .Set("userId", order.userId)
+                .Set("date", order.date)
+                .Set("destinationId", order.destinationId)
+                .Set("state", order.state)
+                .Set("cheese", order.cheese)
+                .Set("ham", order.ham)
+                .Set("butter", order.butter)
+                .Set("ketchup", order.ketchup)
+                .Set("quantity", order.quantity);
 
             client.GetDatabase("SCIOPEN").GetCollection<Orders>("orders").UpdateOne(filter,update);
 
             return new JsonResult("Success");
-        }*/
+        }
 
         // PUT: api/Orders
         [HttpDelete("_id")]

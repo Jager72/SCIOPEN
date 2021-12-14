@@ -20,7 +20,7 @@ namespace backend.Controllers
         {
             _configuration = configuration;
         }
-
+        
         // GET: api/Users
         [HttpGet]
         public JsonResult GetOrders()
