@@ -5,16 +5,19 @@ import MainView from './MainView'
 import { color } from './helpers/styles';
 import {Provider} from "react-redux";
 import {store} from "./actions/store";
-
+import axios from "axios";
+import {NativeRouter} from "react-router-native";
 
 export default function App() {
-  return (
-      <Provider store={store}>
-        <SafeAreaView style={styles.container}>
-          <StatusBar style="auto" />
-          <MainView/>
-        </SafeAreaView>
-      </Provider>
+    return (
+      <NativeRouter>
+        <Provider store={store}>
+          <SafeAreaView style={styles.container}>
+            <StatusBar style="auto" />
+            <MainView/>
+          </SafeAreaView>
+        </Provider>
+      </NativeRouter>
   );
 }
 

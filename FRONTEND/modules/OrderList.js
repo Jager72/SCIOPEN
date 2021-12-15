@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Dimensions, Text, View, FlatList, TouchableOpacity, SectionList} from 'react-native';
 import {color} from "../helpers/styles";
-import { Actions } from 'react-native-router-flux';
 import Feather from 'react-native-vector-icons/Feather';
 import Cheese from "../assets/Cheese";
 import Ham from "../assets/Ham";
@@ -138,7 +137,7 @@ export default function OrderList(){
                 </View>
             </View>
             <View style={styles.bottom}>
-                <TouchableOpacity onPress={() => {Actions.mainMenu()}}>
+                <TouchableOpacity>
                     <View style={styles.row2}>
                         <View style={styles.row3}>
                             <Text style={styles.bottomText}>

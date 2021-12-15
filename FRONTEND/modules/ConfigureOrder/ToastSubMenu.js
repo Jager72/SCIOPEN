@@ -1,9 +1,9 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {Link} from 'react-router-native';
 import {color} from '../../helpers/styles';
 import Toast from '../../assets/Toast'
 import List from '../../assets/List';
-import { Actions } from 'react-native-router-flux';
 
 const ToastSubMenu = () => {
     return (
@@ -12,14 +12,18 @@ const ToastSubMenu = () => {
                 <Text style={styles.textHeader}>Tosty</Text>
             </View>
             <View style={styles.Background}>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.configureOrder()}>
-                    <Toast width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Zamów!</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.orderList()}>
-                    <List width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Zamówienia</Text>
-                </TouchableOpacity>
+                <Link to="/configureOrder" style={styles.block}>
+                    <View style={styles.block2}>
+                        <Toast width="60%" height="60%"/>
+                        <Text style={styles.textHeader}>Zamów!</Text>
+                    </View>
+                </Link>
+                <Link to="/orderList" style={styles.block}>
+                    <View style={styles.block2}>
+                        <List width="60%" height="60%"/>
+                        <Text style={styles.textHeader}>Zamówienia</Text>
+                    </View>
+                </Link>
             </View>
         </View>
     )
@@ -37,6 +41,15 @@ const styles = StyleSheet.create({
     block: {
         width: "65%",
         height: "44%",
+        marginTop: "2%",
+        backgroundColor: color.primaryColor,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    block2:{
+        width: "100%",
+        height: "100%",
         marginTop: "2%",
         backgroundColor: color.primaryColor,
         borderRadius: 30,
