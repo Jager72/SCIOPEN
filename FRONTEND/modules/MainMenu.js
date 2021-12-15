@@ -22,10 +22,10 @@ const MainMenu = () => {
                         <Text style={styles.textHeader}>Tosty</Text>
                     </View>
                 </Link>
-                <Link to='/myProfile' style={styles.block}>
+                <Link to='/adminUsers' style={styles.block}>
                     <View style={styles.block2}>
                         <User width="60%" height="60%"/>
-                        <Text style={styles.textHeader}>Profil</Text>
+                        <Text style={styles.textHeader}>Użytkownicy</Text>
                     </View>
                 </Link>
                 <Link to="/classroomManager" style={styles.block}>
