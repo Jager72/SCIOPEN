@@ -19,9 +19,9 @@ const MainMenu = () => {
                     <Toast width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Tosty</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.block} onPress={()=>Actions.myProfile()}>
+                <TouchableOpacity style={styles.block} onPress={()=>Actions.adminUsers()}>
                     <User width="60%" height="60%"/>
-                    <Text style={styles.textHeader}>Profil</Text>
+                    <Text style={styles.textHeader}>Użytkownicy</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.block} onPress={()=>Actions.classroomManager()}>
                     <Room width="60%" height="60%"/>
