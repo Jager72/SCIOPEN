@@ -81,8 +81,7 @@ const User = props => {
       let obj = DATA.find(x => x.id == id);
       let index = DATA.indexOf(obj);
       DATA.splice(index, 1);
-      Actions.mainMenu();
-      Actions.adminUsers();
+      Actions.refresh();
       /////
     }
   

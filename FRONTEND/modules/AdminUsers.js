@@ -10,7 +10,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const AdminUsers = props => {
 
-    const [selectedValue, setSelectedValue] = useState();
+    const [selectedValue, setSelectedValue] = useState("");
 
     const [data, setData] = React.useState({
         newUserId: null, // ID
