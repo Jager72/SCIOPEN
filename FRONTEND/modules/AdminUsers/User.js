@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Picker} from "react-native";
 import { color } from "../../helpers/styles";
 import Feather from 'react-native-vector-icons/Feather';
@@ -6,9 +6,14 @@ import {connect} from 'react-redux';
 import * as editActions from '../../actions/userEditor';
 import DATA from "../AdminUsers/UsersList";
 import roleDATA from './RolesList';
+import * as userActions from '../../actions/user';
 //import { Actions } from 'react-native-router-flux';
 
 const User = props => {
+
+  useEffect(() => {
+    props.fetchUsers();
+  },[])
 
   const [selectedValue, setSelectedValue] = useState(props.item.role);
 
@@ -51,22 +56,46 @@ const User = props => {
         return;
       }
 
-    let obj = DATA.find(x => x.id == props.currentUser);
-    let index = DATA.indexOf(obj);
+    //let obj = DATA.find(x => x.id == props.currentUser);
+
+    var Id=item.userId;
+    var Nick=item.name;
+    var Pin=item.pin;
+    var Role=item.role;
+    //let index = DATA.indexOf(obj);
       if(data.changedUserNick !== null){
-        DATA[index].name=data.changedUserNick;
+        //DATA[index].name=data.changedUserNick;
+        Nick = data.changedUserNick;
       }
       if(data.changedUserPin !== null){
-        DATA[index].pin=data.changedUserPin;
+        //DATA[index].pin=data.changedUserPin;
+        Pin = data.changedUserPin;
       }
       if(data.changedUserRole !== null){
-        DATA[index].role=data.changedUserRole;
+       // DATA[index].role=data.changedUserRole;
+        Role = data.changedUserRole;
       }
+      
       ///
+      let obj2 =
+            {
+              
+                userId: Id, // ID
+                name: Nick,
+                pin: Pin,
+                role: Role,
+                     
+            }
+      props.updateUser(obj2);
       userNickChange(null)
       userRoleChange(null)
       userPinChange(null)
+      Id = null;
+      Nick = null;
+      Pin = null;
+      Role = null;
       props.setCurrentUserEdit(null);
+      props.fetchUsers();
     }
 
     const cancelEditing = () => {
@@ -76,11 +105,13 @@ const User = props => {
       props.setCurrentUserEdit(null);
     }
 
-    const deleteUser = (id) => {
+    const deleteUser = (userId) => {
       /*delete user from db instead of this:*/
-      let obj = DATA.find(x => x.id == id);
-      let index = DATA.indexOf(obj);
-      DATA.splice(index, 1);
+      //let obj = DATA.find(x => x.id == id);
+      //let index = DATA.indexOf(obj);
+      //DATA.splice(index, 1);
+      props.removeUser(userId);
+      props.fetchUsers();
       //Actions.refresh();
       /////
     }
@@ -181,7 +212,7 @@ const User = props => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={() => {deleteUser(item.id)}}
+          onPress={() => {deleteUser(item.userId)}}
           style={styles.deleteButton}
           >
             <Feather
@@ -224,12 +255,16 @@ const User = props => {
 
 const mapStateToProps = state => ({
   currentUser: state.userEditor.currentUser,
-  creatingUser: state.userEditor.creatingUser
+  creatingUser: state.userEditor.creatingUser,
+  users: state.user.users
 })
 
 const mapActionsToProps = {
   setCurrentUserEdit: editActions.setCurrentUserEdit,
-  setUserCreatingStatus: editActions.setUserCreatingStatus
+  setUserCreatingStatus: editActions.setUserCreatingStatus,
+  fetchUsers: userActions.FetchAll,
+  removeUser: userActions.Delete,
+  updateUser: userActions.Update
 }
 
 export default connect(mapStateToProps,mapActionsToProps)(User);

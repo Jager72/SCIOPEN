@@ -3,28 +3,23 @@ const roleDATA = [
 
     {
       id: 1,
-      name: 'Admin'
+      name: 'admin'
     },
     
     {
       id: 2,
-      name: 'Kucharz'
+      name: 'cook'
     },
     
     {
       id: 3,
-      name: 'Rola3'
+      name: 'guide'
     },
     
     {
       id: 4,
-      name: 'Rola4'
+      name: 'npc'
     },
-    
-    {
-      id: 5,
-      name: 'Rola5'
-    }
     
 ];
 export default roleDATA;
