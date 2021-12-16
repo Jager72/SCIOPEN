@@ -11,14 +11,15 @@ import ClassroomManager from "./modules/ClassroomManager";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
 import MyProfile from './modules/MyProfile';
 import * as orderActions from './actions/order';
+import * as roomActions from './actions/rooms';
 import AdminUsers from './modules/AdminUsers';
 
 const MainView = props => {
 
     useEffect(() => {
-        props.getOrders();
+        props.FetchAllOrders();
+        props.FetchAllRooms();
     }, []);
-    console.log(props.orders);
 
     if (!props.user.isLogged){
         return (
@@ -48,11 +49,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     user: state.user,
-    orders: state.order
+    orders: state.order,
+    rooms: state.rooms.rooms,
 })
 
 const mapActionsToProps = {
-    getOrders: orderActions.fetchAll
+    FetchAllOrders: orderActions.FetchAll,
+    FetchAllRooms: roomActions.FetchAll
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(MainView)

@@ -1,6 +1,9 @@
 export const ACTION_TYPES = {
-    FETCH_ALL: 'fetchAll',
-    FETCH_BY_ID: 'fetchById',
+    FETCH_ALL: 'FetchAll',
+    FETCH_BY_ID: 'FetchById',
+    CREATE: 'Create',
+    UPDATE: 'Update',
+    DELETE: 'Delete',
     LOGIN: 'login',
     LOGOUT: 'logout',
     SET_CURRENT_ROOM: 'setCurrentRoom',
@@ -9,4 +12,6 @@ export const ACTION_TYPES = {
     SET_CURRENT_USER: 'setCurrentUser',
     SET_CURRENT_USER_EDIT: 'setCurrentUserEdit',
     SET_USER_CREATING_STATUS: 'setUserCreatingStatus',
+    SET_CURRENT_ORDER: 'setCurrentOrder',
+    SET_PREP_LIST: 'setPrepList',
 }

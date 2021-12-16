@@ -10,6 +10,18 @@ export const order = (state = initialState, action) => {
             return {
                 list: [...action.payload]
             }
+        case ACTION_TYPES.CREATE.concat("order"):
+            return {
+                list: [...state.list, action.payload]
+            }
+        case ACTION_TYPES.UPDATE.concat("order"):
+            return {
+                list: [...state.list.map(item => item.id === action.payload.id ? action.payload : item)]
+            }
+        case ACTION_TYPES.DELETE.concat("order"):
+            return {
+                list: [...state.list.filter(item => item.id !== action.payload)]
+            }
         default:
             return state;
     }

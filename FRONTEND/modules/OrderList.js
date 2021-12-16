@@ -1,12 +1,17 @@
 import React from 'react';
-import {StyleSheet, Dimensions, Text, View, FlatList, TouchableOpacity, SectionList} from 'react-native';
+import {StyleSheet, Dimensions, Text, View, FlatList, ScrollView, TouchableOpacity, SectionList} from 'react-native';
 import {color} from "../helpers/styles";
+import { Actions } from 'react-native-router-flux';
 import Feather from 'react-native-vector-icons/Feather';
 import Cheese from "../assets/Cheese";
 import Ham from "../assets/Ham";
 import Ketchup from "../assets/Ketchup";
 import Toast from "../assets/Toast";
 import DATA from "./SampleData";
+import OrderListItem from './OrderList/OrderListItem';
+import * as orderActions from '../actions/order';
+import {connect} from 'react-redux';
+import * as orderListActions from '../actions/orderList';
 
 const images = {
   cheese: <Cheese width={25} height={25}/>,
@@ -15,129 +20,42 @@ const images = {
   toast: <Toast width={25} height={25}/>
 }
 
-const addOrder = (order) => {
-    if(UserOrders.length === 0){
-        UserOrders.push(order);
-    }
-    console.log(UserOrders.length);
-}
+  const OrderList = props =>{
 
-const UserOrders =[
-    {
-    id: '4',
-    cheese: 3,
-    ham: 2,
-    ketchup: true,
-    quantity: 2,
-    state: 'preparing',
-  }];
+    useEffect(() => {
+        setInterval(props.FetchAll, 1000);
+    }, []);
 
-const renderItem = ({ item }) => (
-    <View  style={item.state==='waiting' ?  styles.itemW : item.state==='preparing' ? styles.itemP : styles.itemD}>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemLeft}>
-                <Feather
-                    name="hash"
-                    color="#EBEBEB"
-                    size={25}
-            />
-                <Text style={styles.itemText}>{item.id}</Text>
-            </View>
-        </View>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemMiddle}>
-                {images['cheese']}
-                <Text style={styles.itemText}>{item.cheese}</Text>
-            </View>
-        </View>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemMiddle}>
-                {images['ham']}
-                <Text style={styles.itemText}>{item.ham}</Text>
-            </View>
-        </View>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemMiddle}>
-                {images['ketchup']}
-                {item.ketchup ? <Text style={styles.itemText}>✓</Text> : <Text style={styles.itemText}>✗</Text>}
-            </View>
-        </View>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemMiddle}>
-                {images['toast']}
-                <Text style={styles.itemText}>{item.quantity}</Text>
-            </View>
-        </View>
-        <View style={styles.itemMargin}>
-            <View style={styles.itemRight}>
-            {item.state === 'preparing' ?
-                <TouchableOpacity
-                    onPress={() => {/*Change state to 'done'*/}}
-                    style={styles.button}
-                    >
-                    <Feather
-                        name="arrow-down-circle"
-                        color="#EBEBEB"
-                        size={45}
-                    />
-                </TouchableOpacity>
-            :null}
-            {item.state === 'waiting' ?
-                <TouchableOpacity
-                    onPress={() => {/*Change state to 'preparing' and set cookId*/}}
-                    style={styles.button}
-                >
-                <Feather
-                    name="arrow-up-circle"
-                    color="#EBEBEB"
-                    size={45}
-                />
-                </TouchableOpacity>
-            :null}
-            {item.state === 'done' ?
-                <TouchableOpacity
-                    onPress={() => {/*Change state to 'delivered'*/}}
-                    style={styles.button}
-                >
-                <Feather
-                    name="arrow-right-circle"
-                    color="#EBEBEB"
-                    size={45}
-                />
-                </TouchableOpacity>
-            :null}
-            </View>
-        </View>
-    </View>
-);
-
-export default function OrderList(){
     return(
         <View style={styles.container}>
             <View style={styles.top}>
                 <Text style={styles.title}>Aktualne Zamówienia</Text>
             </View>
             <View style={styles.main}>
-                {UserOrders.length !== 0 ?
+                {props.prepList !== null ?
                 <View style={styles.ordersInPreparation}>
-                    <FlatList
-                        style={styles.list}
-                        data={UserOrders}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                    />
+                    {props.prepList.map((item) => {
+                                return (
+                                        <OrderListItem item={item} key={item.orderId}/>
+                                )
+                        })}
                 </View>:null}
                 <View style={styles.listHolder}>
-                    <FlatList
-                        style={styles.list}
-                        data={DATA}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                    />
+                    <ScrollView>
+                    {
+                        props.list.map((item) => {
+                            if(item.state != 'preparing' && item.state!='delivered'){
+                                return (
+                                        <OrderListItem item={item} key={item.orderId}/>
+                                )
+                            }
+                        })
+                    }
+                    </ScrollView>
                 </View>
             </View>
             <View style={styles.bottom}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {Actions.mainMenu()}}>
                     <View style={styles.row2}>
                         <View style={styles.row3}>
                             <Text style={styles.bottomText}>
@@ -155,6 +73,20 @@ export default function OrderList(){
         </View>
     );
 }
+
+const mapStateToProps = state => ({
+    list: state.order.list,
+    currentOrder: state.orderList.currentOrder,
+    prepList: state.orderList.prepList
+
+})
+
+const mapActionsToProps = {
+    FetchAll: orderActions.FetchAll,
+    setCurrentOrder: orderListActions.setCurrentOrder
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(OrderList)
 
 const styles = StyleSheet.create({
     button:{

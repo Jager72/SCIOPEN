@@ -8,22 +8,45 @@ import * as roomActions from '../../actions/rooms';
 const Classroom = props => {
   var item = props.item;
   console.log(props.visitedRooms.indexOf(item.roomNumber) > -1)
-  const leaveRoom = (number) => {
+
+  const leaveRoom = (room) => {
     props.setCurrentRoom(null);
-    props.addVisitedRoom(number);
+    props.addVisitedRoom(room.roomNumber);
     /*Change state to 'free'*/
+    console.log(room)
+    props.update(
+      {
+        roomNumber: room.roomNumber,
+        name: room.name,
+        description: room.description,
+        available: true,
+        startDate: room.startDate
+      }
+    )
+    props.FetchAll()
   }
   
   
-  const enterRoom = (number) => {
-    props.setCurrentRoom(number);
+  const enterRoom = (room) => {
+    props.setCurrentRoom(room.roomNumber);
+    console.log(room)
     /*Change state to 'busy'*/
+    props.update(
+      {
+        roomNumber: room.roomNumber,
+        name: room.name,
+        description: room.description,
+        available: false,
+        startDate: room.startDate
+      }
+    )
+    props.FetchAll()
   }
 
   return (
-    <View style={item.state==='busy' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) == -1 ?  styles.notAvailableClass 
-    : item.state==='busy' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedNotAvailableClass
-    : item.state==='free' && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedClass
+    <View style={!item.available && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) == -1 ?  styles.notAvailableClass 
+    : !item.available && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedNotAvailableClass
+    : item.available && item.roomNumber !== props.currentRoom && props.visitedRooms.indexOf(item.roomNumber) > -1 ? styles.visitedClass
     : styles.class
     }>
       <Text style={styles.typeText}>{item.roomNumber}</Text>
@@ -32,9 +55,9 @@ const Classroom = props => {
           <Text style={styles.descriptionText}>{item.description}</Text>
       </View>
       <View style={styles.buttonHolder}>
-          {item.state==='free' ?
+          {item.available ?
           <TouchableOpacity
-          onPress={() => {props.currentRoom === null ? enterRoom(item.roomNumber) : Alert.alert('Błąd!', 'Masz już zajęty inny pokój!')}}
+          onPress={() => {props.currentRoom === null ? enterRoom(item) : Alert.alert('Błąd!', 'Masz już zajęty inny pokój!')}}
           style={styles.takeButton}
           >
             <Feather
@@ -43,7 +66,7 @@ const Classroom = props => {
                     size={45}
             />
           </TouchableOpacity> : 
-          item.state==='busy' && item.roomNumber !== props.currentRoom ? 
+          !item.available && item.roomNumber !== props.currentRoom ? 
           <View style={styles.notAvailable}>
             <Feather
                     name="x-square"
@@ -52,7 +75,7 @@ const Classroom = props => {
             />
           </View> : 
           <TouchableOpacity
-          onPress={() => {leaveRoom(item.roomNumber)}}
+          onPress={() => {leaveRoom(item)}}
           style={styles.releaseButton}
           >
             <Feather
@@ -78,6 +101,9 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
   setCurrentRoom: roomActions.setCurrentRoom,
   addVisitedRoom: roomActions.addVisitedRoom,
+  update: roomActions.Update,
+  FetchAll: roomActions.FetchAll,
+
 }
 
 export default connect(mapStateToProps,mapActionsToProps)(Classroom);
