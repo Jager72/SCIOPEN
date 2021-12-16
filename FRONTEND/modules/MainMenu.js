@@ -28,7 +28,7 @@ const MainMenu = () => {
                         <Text style={styles.textHeader}>Użytkownicy</Text>
                     </View>
                 </Link>
-                <Link to="/classroomManager" style={styles.block}>
+                <Link to="/classroomEditor" style={styles.block}>
                     <View style={styles.block2}>
                         <Room width="60%" height="60%"/>
                         <Text style={styles.textHeader}>Pokoje</Text>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     titlewraper: {
         width: "100%",
-        height: "10%",
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: color.highlightColor,

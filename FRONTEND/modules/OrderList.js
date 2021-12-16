@@ -7,6 +7,7 @@ import Ham from "../assets/Ham";
 import Ketchup from "../assets/Ketchup";
 import Toast from "../assets/Toast";
 import DATA from "./SampleData";
+import Header from "./Header";
 
 const images = {
   cheese: <Cheese width={25} height={25}/>,
@@ -114,9 +115,7 @@ const renderItem = ({ item }) => (
 export default function OrderList(){
     return(
         <View style={styles.container}>
-            <View style={styles.top}>
-                <Text style={styles.title}>Aktualne Zamówienia</Text>
-            </View>
+            <Header title={"Zamówienia"} path={'/toastSubMenu'}/>
             <View style={styles.main}>
                 {UserOrders.length !== 0 ?
                 <View style={styles.ordersInPreparation}>
@@ -135,22 +134,6 @@ export default function OrderList(){
                         keyExtractor={item => item.id}
                     />
                 </View>
-            </View>
-            <View style={styles.bottom}>
-                <TouchableOpacity>
-                    <View style={styles.row2}>
-                        <View style={styles.row3}>
-                            <Text style={styles.bottomText}>
-                                <Feather
-                                name="arrow-left"
-                                color="#EBEBEB"
-                                size={25}
-                                />
-                                Powrót
-                            </Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
             </View>
         </View>
     );
@@ -282,35 +265,5 @@ const styles = StyleSheet.create({
         flex:1,
         marginBottom:10,
         marginTop: 10,
-    },
-    bottom: {
-        flex:1,
-        backgroundColor: color.primaryColor,
-        alignItems: 'center',
-        height:'100%',
-        width:'100%',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        marginTop:5,
-    },
-    row2: {
-        marginTop: 20,
-        width: '80%',
-        borderRadius: 20,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: color.highlightColor
-    },
-    row3: {
-        flexDirection: 'row',
-        paddingLeft:30,
-        paddingRight:30,
-    },
-    bottomText:{
-        color: color.brightColor,
-        fontWeight: 'bold',
-        fontSize: 25,
     },
 });
