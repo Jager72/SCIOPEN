@@ -20,7 +20,7 @@ const MainView = props => {
         props.getOrders();
     }, []);
     useEffect(() => {
-        console.log(props.user.user[0]);
+        //console.log(JSON.parse(props.user.user).name);
     },[props.user]);
 
 
@@ -29,15 +29,16 @@ const MainView = props => {
            <Login/>
         );
     }
+    let user = JSON.parse(props.user.user)
     return (
         <View style={styles.container}>
             <Routes>
                 <Route path="/" element={<MainMenu/>}/>
                 <Route path="/configureOrder" element={<ConfigureOrder/>}/>
                 <Route path="/orderList" element={<OrderList/>}/>
-                <Route path="/classroomManager" element={<ClassroomManager/>}/>
+                <Route path="/classroomManager" element={user.role==="admin" ? <ClassroomEditor/> : <ClassroomManager/>}/>
                 <Route path="/toastSubMenu" element={<ToastSubMenu/>}/>
-                <Route path="/myProfile" element={<MyProfile/>}/>
+                <Route path="/myProfile" element={user.role==="admin" ? <AdminUsers/> : <MyProfile/>}/>
                 <Route path="/adminUsers" element={<AdminUsers/>}/>
                 <Route path="/classroomEditor" element={<ClassroomEditor/>}/>
             </Routes>

@@ -25,7 +25,7 @@ namespace backend.Controllers
         
         // GET: api/Users
         [HttpGet]
-        public JsonResult GetOrders()
+        public JsonResult GetUers()
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
@@ -49,7 +49,7 @@ namespace backend.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public JsonResult AddOrder(Users user)
+        public JsonResult AddUser(Users user)
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
@@ -76,7 +76,7 @@ namespace backend.Controllers
 
         // DELETE: api/Users
         [HttpDelete("_id")]
-        public JsonResult DeleteOrder(string id)
+        public JsonResult DeleteUser(string id)
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
