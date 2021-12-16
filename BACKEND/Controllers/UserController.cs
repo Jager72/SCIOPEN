@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 
 namespace backend.Controllers
 {
@@ -63,9 +64,8 @@ namespace backend.Controllers
         {
             MongoClient client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Users>.Filter.Eq("_id", user.id);
-            var update = Builders<Users>.Update.Set("orderId", user.userId)
-                .Set("userId", user.name)
+            var filter = Builders<Users>.Filter.Eq("userId", user.userId);
+            var update = Builders<Users>.Update.Set("name", user.name)
                 .Set("pin", user.pin)
                 .Set("role", user.role);
 
@@ -80,7 +80,7 @@ namespace backend.Controllers
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
+            var filter = Builders<Users>.Filter.Eq("userId", id);
 
             client.GetDatabase("SCIOPEN").GetCollection<Users>("users").DeleteOne(filter);
 
@@ -96,7 +96,7 @@ namespace backend.Controllers
             var nameFilter = Builders<Users>.Filter.Eq("name", name);
             var pinFilter = Builders<Users>.Filter.Eq("pin", pin);
 
-            var result = client.GetDatabase("SCIOPEN").GetCollection<Users>("users").Find(nameFilter & pinFilter).FirstOrDefault();
+            var result = client.GetDatabase("SCIOPEN").GetCollection<Users>("users").Find(nameFilter & pinFilter).FirstOrDefault<Users>();
 
             if (result != null)
             {

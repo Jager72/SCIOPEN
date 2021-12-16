@@ -24,25 +24,25 @@ export const rooms = (state = initialState,action) => {
             return {
                 currentRoom: state.currentRoom,
                 visitedRooms: state.visitedRooms,
-                rooms: action.payload
+                rooms: [...action.payload]
             };
         case ACTION_TYPES.CREATE.concat(ROOM):
             return {
                 currentRoom: state.currentRoom,
                 visitedRooms: state.visitedRooms,
-                rooms: state.rooms.push(action.payload)
+                rooms: [...state.rooms, action.payload]
             };
         case ACTION_TYPES.UPDATE.concat(ROOM):
             return {
                 currentRoom: state.currentRoom,
                 visitedRooms: state.visitedRooms,
-                rooms: state.rooms.map(room => room.id === action.payload.id ? action.payload : room)
+                rooms: [...state.rooms.map(item => item.roomNumber === action.payload.roomNumber ? action.payload : item)]
             };
         case ACTION_TYPES.DELETE.concat(ROOM):
             return {
                 currentRoom: state.currentRoom,
                 visitedRooms: state.visitedRooms,
-                rooms: state.rooms.filter(room => room.id !== action.payload)
+                rooms: [...state.rooms.filter(item => item.id !== action.payload)]
             };
         default:
             return state;

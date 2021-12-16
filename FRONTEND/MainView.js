@@ -19,7 +19,10 @@ const MainView = props => {
     useEffect(() => {
         props.getOrders();
     }, []);
-    console.log(props.orders);
+    useEffect(() => {
+        console.log(props.user.user[0]);
+    },[props.user]);
+
 
     if (!props.user.isLogged){
         return (

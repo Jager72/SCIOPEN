@@ -11,7 +11,7 @@ export const user = (state = initialState,action) => {
         case ACTION_TYPES.LOGIN:
             return {
                 isLogged:true,
-                user:state.user,
+                user:action.payload,
                 users:state.users
             };
         case ACTION_TYPES.LOGOUT:
@@ -24,25 +24,25 @@ export const user = (state = initialState,action) => {
             return {
                 isLogged:state.isLogged,
                 user:state.user,
-                users:action.payload
+                users: [...action.payload]
             };
         case ACTION_TYPES.CREATE.concat(USER):
             return {
                 isLogged:state.isLogged,
                 user:state.user,
-                users:state.users.push(action.payload)
+                users: [...state.users, action.payload]
             };
         case ACTION_TYPES.UPDATE.concat(USER):
             return {
-                isLogged:state.isLogged,
-                user:state.user,
-                users:state.users.map(user => user.id === action.payload.id ? action.payload : user)
+                isLogged: state.isLogged,
+                user: state.user,
+                users: [...state.users.map(item => item.id === action.payload.id ? action.payload : item)]
             };
         case ACTION_TYPES.DELETE.concat(USER):
             return {
                 isLogged:state.isLogged,
                 user:state.user,
-                users:state.users.filter(user => user.id !== action.id)
+                users: [...state.users.filter(item => item.id !== action.payload)]
             };
         default:
             return state;

@@ -17,7 +17,7 @@ export const FetchAll = () => dispatch => {
     api.room().fetchAll().then(rooms => {
         dispatch({
             type: ACTION_TYPES.FETCH_ALL.concat(ROOM),
-            payload: rooms,
+            payload: rooms.data,
         })
     }).catch(err => console.log(err));
 }

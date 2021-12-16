@@ -57,9 +57,8 @@ namespace backend.Controllers
         {
             MongoClient client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Rooms>.Filter.Eq("_id", room.id);
-            var update = Builders<Rooms>.Update.Set("roomNumber", room.roomNumber)
-                .Set("name", room.name)
+            var filter = Builders<Rooms>.Filter.Eq("roomNumber", room.roomNumber);
+            var update = Builders<Rooms>.Update.Set("name", room.name)
                 .Set("description", room.description)
                 .Set("available", room.available)
                 .Set("startDate", room.startDate);
@@ -75,7 +74,7 @@ namespace backend.Controllers
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Rooms>.Filter.Eq("roomId", id);
+            var filter = Builders<Rooms>.Filter.Eq("roomNumber", id);
 
             client.GetDatabase("SCIOPEN").GetCollection<Rooms>("rooms").DeleteOne(filter);
 
