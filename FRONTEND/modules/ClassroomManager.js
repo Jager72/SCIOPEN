@@ -5,13 +5,12 @@ import {color} from "../helpers/styles";
 import DATA from './ClassroomManager/SampleDataRooms';
 import {connect} from 'react-redux';
 import * as roomActions from '../actions/rooms';
+import Header from "./Header";
 
 const ClassroomManager = props => {
     return(
         <View style={styles.container}>
-            <View style={styles.Header}>
-                <Text style={styles.textHeader}>Sale</Text>
-            </View>
+            <Header title={"Sale"} path={'/'}/>
             {props.currentRoom !== null ?
                 <View>
                     <View style={styles.Separator1}>
@@ -69,22 +68,7 @@ const mapStateToProps = state => ({
   export default connect(mapStateToProps,mapActionsToProps)(ClassroomManager);
 
 const styles = StyleSheet.create({
-    Header: {
-        height: 60,
-        flexDirection: "row",
-        backgroundColor: color.highlightColor,
-        alignItems: "center",
-        justifyContent: "space-around",
-    },
 
-    textHeader: {
-        flex: 3,
-        textAlign: "left",
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginLeft: "10%",
-    },
     resetButton: {
         flex: 2,
         marginRight:"50%",

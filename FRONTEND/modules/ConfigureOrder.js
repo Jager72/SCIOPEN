@@ -3,10 +3,12 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import TostElementInput from "./ConfigureOrder/TostElementInput";
 import TostElementBool from "./ConfigureOrder/TostElementBool";
 import {color} from "../helpers/styles";
+import Header from "./Header";
 
 export default function ConfigureOrder(){
     return(
         <View style={styles.container}>
+            <Header title={"Edycja"} path={'/toastSubMenu'}/>
             <TostElementInput itemType={"Ser"} eImage={"cheese"}/>
             <TostElementInput itemType={"Szynka"} eImage={"ham"}/>
             <TostElementBool itemType={"Ketchup"} eImage={"ketchup"}/>
