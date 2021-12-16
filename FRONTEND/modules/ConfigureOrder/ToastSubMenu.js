@@ -4,13 +4,12 @@ import {Link} from 'react-router-native';
 import {color} from '../../helpers/styles';
 import Toast from '../../assets/Toast'
 import List from '../../assets/List';
+import Header from "../Header";
 
 const ToastSubMenu = () => {
     return (
         <View style={styles.container}>
-            <View style={styles.titlewraper}>
-                <Text style={styles.textHeader}>Tosty</Text>
-            </View>
+             <Header title={"Tosty"} path={'/'}/>
             <View style={styles.Background}>
                 <Link to="/configureOrder" style={styles.block}>
                     <View style={styles.block2}>

@@ -2,6 +2,7 @@ import React from 'react';
 import {Image,  ScrollView, StyleSheet, Text, View} from 'react-native';
 import {color} from "../helpers/styles";
 import Statistics from "./MyProfile/Statistics";
+import Header from "./Header";
 
 var nick = "ZongXina";
 var role = "Kucharz";
@@ -13,9 +14,7 @@ export default function MyProfile(){
     return(
         <View style={styles.container}>
 
-            <View style={styles.Header}>
-                <Text style={styles.textHeader}>Mój Profil</Text>
-            </View>
+        <Header title={"Mój Profil"} path={'/'}/>
 
             <View style={styles.Profile} >
 
@@ -35,12 +34,19 @@ export default function MyProfile(){
                 </View>
 
             </View>
+            
 
-            <View style={styles.Stats} >
+        </View>
+    );
+}
+
+/*
+    <View style={styles.Stats} >
 
                 <View style={styles.StatsHeader}>
                     <Text style={styles.StatsHeaderText}>Twoje Statystyki:</Text>
                 </View>
+                
                 <ScrollView>
                     <Statistics Name={"Zrealizowane zamówienia"} Value={24}/>
                     <Statistics Name={"Upieczone tosty"} Value={32}/>
@@ -57,26 +63,10 @@ export default function MyProfile(){
                  </ScrollView>
 
             </View>
-
-        </View>
-    );
-}
+*/
 
 const styles = StyleSheet.create({
-    Header: {
-        height: 60,
-        flexDirection: "row",
-        backgroundColor: color.highlightColor,
-        alignItems: "center",
-        justifyContent: "space-around",
-    },
-    textHeader: {
-        flex: 3,
-        textAlign: "center",
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
-    },
+   
     Profile: {
         flex: 1,
     },

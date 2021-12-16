@@ -5,6 +5,7 @@ import {color} from "../helpers/styles";
 import {connect} from 'react-redux';
 import * as editActions from '../actions/roomEditor';
 import Feather from 'react-native-vector-icons/Feather';
+import Header from "./Header";
 
 const ClassroomEditor = props => {
     const [data, setData] = React.useState({
@@ -67,9 +68,7 @@ const ClassroomEditor = props => {
     }
     return(
         <View style={styles.container}>
-            <View style={styles.Header}>
-                <Text style={styles.textHeader}>Edytor Sal</Text>
-            </View>
+             <Header title={"Edytor Sal"} path={'/'}/>
             <ScrollView>
                 {
                     props.roomArr.map((item) => {
@@ -151,13 +150,7 @@ const mapStateToProps = state => ({
   export default connect(mapStateToProps,mapActionsToProps)(ClassroomEditor);
 
 const styles = StyleSheet.create({
-    Header: {
-        height: 60,
-        flexDirection: "row",
-        backgroundColor: color.highlightColor,
-        alignItems: "center",
-        justifyContent: "space-around",
-    },
+
     saveButton:{
         backgroundColor: color.highlightColor,
         borderRadius: 10,
@@ -229,14 +222,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
 
-    textHeader: {
-        flex: 3,
-        textAlign: "left",
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginLeft: "10%",
-    },
     resetButton: {
         flex: 2,
         marginRight:"50%",

@@ -12,6 +12,7 @@ import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
 import MyProfile from './modules/MyProfile';
 import * as orderActions from './actions/order';
 import AdminUsers from './modules/AdminUsers';
+import ClassroomEditor from './modules/ClassroomEditor';
 
 const MainView = props => {
 
@@ -35,6 +36,7 @@ const MainView = props => {
                 <Route path="/toastSubMenu" element={<ToastSubMenu/>}/>
                 <Route path="/myProfile" element={<MyProfile/>}/>
                 <Route path="/adminUsers" element={<AdminUsers/>}/>
+                <Route path="/classroomEditor" element={<ClassroomEditor/>}/>
             </Routes>
         </View>
     );

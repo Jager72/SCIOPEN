@@ -7,6 +7,8 @@ import roleDATA from './AdminUsers/RolesList';
 import {connect} from 'react-redux';
 import * as editActions from '../actions/userEditor';
 import Feather from 'react-native-vector-icons/Feather';
+import { Link } from "react-router-native";
+import Header from "./Header";
 
 const AdminUsers = props => {
 
@@ -82,11 +84,12 @@ const AdminUsers = props => {
 
     return(
         <View style={styles.container}>
-            <View style={styles.Header}>
-                <Text style={styles.textHeader}>Użytkownicy</Text>
-            </View>
+            
+            
+            <Header title={"Użytkownicy"} path={'/'}/>
 
-             {!props.creatingUser ?
+
+            {!props.creatingUser ?
             <TouchableOpacity 
             onPress={() => {openUserCreatingPanel()}}
             style={styles.button}>
@@ -225,10 +228,13 @@ const mapStateToProps = state => ({
   export default connect(mapStateToProps,mapActionsToProps)(AdminUsers);
 
 const styles = StyleSheet.create({
-    Header: {
-        height: 60,
-        flexDirection: "row",
-        backgroundColor: color.highlightColor,
+    backButton:{
+        backgroundColor: color.secondaryColor,
+        borderRadius: 10,
+        marginLeft: 10,
+        padding:2,
+        width: 45,
+        height: 45,
         alignItems: "center",
         justifyContent: "space-around",
     },
@@ -318,14 +324,6 @@ const styles = StyleSheet.create({
 
     textButton: {
         flex: 3,
-        textAlign: "center",
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
-    },
-
-    textHeader: {
-        flex: 1,
         textAlign: "center",
         color: 'white',
         fontWeight: 'bold',
