@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, Text, TextInput, View, Button, Alert, Picker} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Picker, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import User from "./AdminUsers/User";
 import {color} from "../helpers/styles";
 import DATA from './AdminUsers/UsersList';
@@ -7,12 +7,17 @@ import roleDATA from './AdminUsers/RolesList';
 import {connect} from 'react-redux';
 import * as editActions from '../actions/userEditor';
 import Feather from 'react-native-vector-icons/Feather';
-import { Link } from "react-router-native";
 import Header from "./Header";
+import * as userActions from '../actions/user';
 
 const AdminUsers = props => {
-
     const [selectedValue, setSelectedValue] = useState("");
+
+    useEffect(() => {
+        props.fetchUsers();
+    },[])
+    console.log(props.users);
+
 
     const [data, setData] = React.useState({
         newUserId: null, // ID
@@ -50,7 +55,7 @@ const AdminUsers = props => {
     const openUserCreatingPanel = () => {
         props.setUserCreatingStatus()
     }
-    
+
     const cancelUserCreating = () => {
         userIdChange(null) // ID
         userNickChange(null)
@@ -60,18 +65,18 @@ const AdminUsers = props => {
     }
 
     const createUser = () => {
-        if ( data.newUserNick === null || data.newUserPin === null ) {
+        if (data.newUserNick === null || data.newUserPin === null) {
             Alert.alert('Błąd!', 'Nie wprowadzono wymaganych danych!'); //Nie sprawdza id, bo docelowo będzie się automatycznie tworzyć.
             return;
         }
-      
-        let obj = 
-        {
-          id: data.newUserId, // ID
-          name: data.newUserNick,
-          pin: data.newUserPin,
-          role: data.newUserRole,
-        }
+
+        let obj =
+            {
+                id: data.newUserId, // ID
+                name: data.newUserNick,
+                pin: data.newUserPin,
+                role: data.newUserRole,
+            }
         DATA.push(obj)
         ////////
         userIdChange(null) // ID
@@ -81,24 +86,19 @@ const AdminUsers = props => {
         props.setUserCreatingStatus()
     }
 
-
-    return(
+    return (
         <View style={styles.container}>
-            
-            
             <Header title={"Użytkownicy"} path={'/'}/>
-
-
             {!props.creatingUser ?
-            <TouchableOpacity 
-            onPress={() => {openUserCreatingPanel()}}
-            style={styles.button}>
-                <Text style={styles.textButton}>Dodaj osobę</Text>
-            </TouchableOpacity>
-            :
-            <View style={styles.user}>
-
-                <TextInput  // ID
+                <TouchableOpacity
+                    onPress={() => {
+                        openUserCreatingPanel()
+                    }}
+                    style={styles.button}>
+                    <Text style={styles.textButton}>Dodaj osobę</Text>
+                </TouchableOpacity> :
+                <View style={styles.user}>
+                    <TextInput  // ID
                         style={styles.idText}
                         keyboardType="numeric"
                         underlineColorAndroid="transparent"
@@ -108,158 +108,154 @@ const AdminUsers = props => {
                         placeholderTextColor="#D7D7D7"
                         onChangeText={(val) => userIdChange(val)}
                     />
-        
-              
-                <View style={styles.Info}>
-                    <View style={styles.Info1}>
-                         <Text style={styles.infoTextHeader}>Nick:</Text>
+                    <View style={styles.Info}>
+                        <View style={styles.Info1}>
+                            <Text style={styles.infoTextHeader}>Nick:</Text>
+                        </View>
+                        <View style={styles.Info2}>
+                            <TextInput
+                                style={styles.infoText}
+                                underlineColorAndroid="transparent"
+                                selectionColor={'white'}
+                                placeholder={'Nazwa'}
+                                placeholderTextColor="#D7D7D7"
+                                maxLength={8}
+                                onChangeText={(val) => userNickChange(val)}
+                            />
+                        </View>
                     </View>
-                    <View style={styles.Info2}>
-                    <TextInput
-                        style={styles.infoText}
-                        underlineColorAndroid="transparent"
-                        selectionColor={'white'}
-                        placeholder={'Nazwa'}
-                        placeholderTextColor="#D7D7D7"
-                        maxLength={8}
-                        onChangeText={(val) => userNickChange(val)}
-                    />
-                     </View>
-                </View>
-
-                <View style={styles.Info}>
-                    <View style={styles.Info1}>
-                         <Text style={styles.infoTextHeader}>Rola:</Text>
+                    <View style={styles.Info}>
+                        <View style={styles.Info1}>
+                            <Text style={styles.infoTextHeader}>Rola:</Text>
+                        </View>
+                        <View style={styles.Info2}>
+                            <Picker
+                                selectedValue={selectedValue}
+                                style={{
+                                    height: 300, width: 130,
+                                    color: 'white',
+                                    textAlign: "center",
+                                    fontSize: 15,
+                                }}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    setSelectedValue(itemValue);
+                                    userRoleChange(itemValue)
+                                }}>
+                                <Picker.Item label="Rola" value=""/>
+                                {
+                                    roleDATA.map((item) => {
+                                        return (
+                                            <Picker.Item item={item} key={item.id} label={item.name} value={item.name}/>
+                                        )
+                                    })
+                                }
+                            </Picker>
+                        </View>
                     </View>
-                    <View style={styles.Info2}>
-                        <Picker
-                        selectedValue={selectedValue}
-                        style={{ height: 300, width: 130, 
-                        color: 'white',
-                        textAlign: "center",
-                        fontSize: 15,
-                        }}
-                        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);  userRoleChange(itemValue)}}
+                    <View style={styles.Info}>
+                        <View style={styles.Info1}>
+                            <Text style={styles.infoTextHeader}>Pin:</Text>
+                        </View>
+                        <View style={styles.Info2}>
+                            <TextInput
+                                style={styles.infoText}
+                                keyboardType="numeric"
+                                underlineColorAndroid="transparent"
+                                selectionColor={'white'}
+                                placeholder={'Pin'}
+                                maxLength={4}
+                                placeholderTextColor="#D7D7D7"
+                                onChangeText={(val) => userPinChange(val)}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.buttonHolder}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                createUser()
+                            }}
+                            style={styles.saveButton}
                         >
-                            <Picker.Item label="Rola" value=""/>
-                        {
-                            roleDATA.map((item) => {
-                                return (
-                                    <Picker.Item item={item} key={item.id} label={item.name} value={item.name} />
-                                )
-                            })
-                        }
-
-                        </Picker>
-                    </View>
-                </View>
-
-                <View style={styles.Info}>
-                    <View style={styles.Info1}>
-                         <Text style={styles.infoTextHeader}>Pin:</Text>
-                    </View>
-                    <View style={styles.Info2}>
-                    <TextInput
-                        style={styles.infoText}
-                        keyboardType="numeric"
-                        underlineColorAndroid="transparent"
-                        selectionColor={'white'}
-                        placeholder={'Pin'}
-                        maxLength={4}
-                        placeholderTextColor="#D7D7D7"
-                        onChangeText={(val) => userPinChange(val)}
-                    />
-                     </View>
-                </View>
-
-
-                <View style={styles.buttonHolder}>
-                    <TouchableOpacity
-                    onPress={() => {createUser()}}
-                    style={styles.saveButton}
-                    >
-                        <Feather
+                            <Feather
                                 name="check"
                                 color="#EBEBEB"
                                 size={35}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => {cancelUserCreating()}}
-                    style={styles.deleteButton}
-                    >
-                        <Feather
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                cancelUserCreating()
+                            }}
+                            style={styles.deleteButton}
+                        >
+                            <Feather
                                 name="x-square"
                                 color="#EBEBEB"
                                 size={35}
-                        />
-                    </TouchableOpacity>
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
             }
-
-
-            
-
             <ScrollView>
                 {
-                    DATA.map((item) => {
+                    props.users.map((item) => {
                         return (
-                        <User item={item} key={item.id}/>
+                            <User item={item} key={item.userId}/>
                         )
                     })
                 }
-               
             </ScrollView>
-            
         </View>
     );
 }
 const mapStateToProps = state => ({
     currentUser: state.userEditor.currentUser,
-    creatingUser: state.userEditor.creatingUser
-  })
-  
-  const mapActionsToProps = {
+    creatingUser: state.userEditor.creatingUser,
+    users: state.user.users
+})
+
+const mapActionsToProps = {
     setCurrentUserEdit: editActions.setCurrentUserEdit,
-    setUserCreatingStatus: editActions.setUserCreatingStatus
-  }
-  
-  export default connect(mapStateToProps,mapActionsToProps)(AdminUsers);
+    setUserCreatingStatus: editActions.setUserCreatingStatus,
+    fetchUsers: userActions.FetchAll
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(AdminUsers);
 
 const styles = StyleSheet.create({
-    backButton:{
+    backButton: {
         backgroundColor: color.secondaryColor,
         borderRadius: 10,
         marginLeft: 10,
-        padding:2,
+        padding: 2,
         width: 45,
         height: 45,
         alignItems: "center",
         justifyContent: "space-around",
     },
-    saveButton:{
+    saveButton: {
         backgroundColor: color.highlightColor,
         borderRadius: 10,
-        margin:3,
-        padding:2,
+        margin: 3,
+        padding: 2,
     },
-    deleteButton:{
+    deleteButton: {
         backgroundColor: 'red',
         borderRadius: 10,
-        margin:3,
-        padding:2,
+        margin: 3,
+        padding: 2,
     },
 
-      buttonHolder: {
-          flex:1.3,
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          flexDirection: 'column',
-      },
+    buttonHolder: {
+        flex: 1.3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        flexDirection: 'column',
+    },
 
-      Info: {
+    Info: {
         flex: 1.1,
         backgroundColor: "#064c7d",
         height: "80%",
@@ -267,39 +263,39 @@ const styles = StyleSheet.create({
         margin: 1,
         color: 'white',
         justifyContent: 'center'
-      },
-      Info1: {
+    },
+    Info1: {
         flex: 1,
         backgroundColor: '#043557',
         borderTopLeftRadius: 4,
         borderTopRightRadius: 4,
-      },
-      Info2: {
+    },
+    Info2: {
         flex: 3,
         justifyContent: 'center'
-      },
-      infoTextHeader: {
+    },
+    infoTextHeader: {
         color: 'white',
         textAlign: "center",
         fontSize: 15,
-    
-      },
-      infoText: {
-        color: 'white',
-        textAlign: "center",
-        fontSize: 15,
-    
-      },
 
-      idText: {
+    },
+    infoText: {
+        color: 'white',
+        textAlign: "center",
+        fontSize: 15,
+
+    },
+
+    idText: {
         flex: 1.2,
-        color:"white",
+        color: "white",
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 20,
-      },
+    },
 
-      user : {
+    user: {
         height: 100,
         flexDirection: "row",
         backgroundColor: color.secondaryColor,
@@ -307,7 +303,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         margin: 8,
         borderRadius: 25,
-      },
+    },
 
     button: {
         height: 60,
@@ -331,7 +327,7 @@ const styles = StyleSheet.create({
     },
     resetButton: {
         flex: 2,
-        marginRight:"50%",
+        marginRight: "50%",
     },
     Separator1: {
         height: 30,
@@ -360,6 +356,6 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        flex:1,
+        flex: 1,
     }
 });

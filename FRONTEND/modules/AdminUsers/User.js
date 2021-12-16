@@ -44,13 +44,13 @@ const User = props => {
     });
 
   }
-    
+
     const saveUser = () => {
       if ( data.changedUserNick === null && data.changedUserRole === null && data.changedUserPin === null ) {
         Alert.alert('Błąd!', 'Nie wprowadzono żadnych zmian!');
         return;
       }
-      
+
     let obj = DATA.find(x => x.id == props.currentUser);
     let index = DATA.indexOf(obj);
       if(data.changedUserNick !== null){
@@ -75,7 +75,7 @@ const User = props => {
       userPinChange(null)
       props.setCurrentUserEdit(null);
     }
-    
+
     const deleteUser = (id) => {
       /*delete user from db instead of this:*/
       let obj = DATA.find(x => x.id == id);
@@ -84,12 +84,12 @@ const User = props => {
       //Actions.refresh();
       /////
     }
-  
+
 
 
   return (
     <View style={styles.users}>
-      <Text style={styles.idText}>#{item.id}</Text>
+      <Text style={styles.idText}>#{item.userId}</Text>
 
       <View style={styles.Info}>
         <View style={styles.Info1}>
@@ -109,7 +109,7 @@ const User = props => {
           onChangeText={(val) => userNickChange(val)}
       />
           }
-            
+
         </View>
       </View>
 
@@ -125,7 +125,7 @@ const User = props => {
           :
           <Picker
           selectedValue={selectedValue}
-          style={{ height: 300, width: 130, 
+          style={{ height: 300, width: 130,
           color: 'white',
           textAlign: "center",
           fontSize: 15,
@@ -217,7 +217,7 @@ const User = props => {
         }
 
 
-     
+
     </View>
   );
 };
