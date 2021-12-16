@@ -52,7 +52,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionsToProps = {
-    getOrders: orderActions.fetchAll
+    getOrders: orderActions.FetchAll
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(MainView)

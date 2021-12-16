@@ -100,7 +100,7 @@ namespace backend.Controllers
 
             if (result != null)
             {
-                return new JsonResult("Success");
+                return new JsonResult(result);
             }
 
             return new JsonResult("Failed");

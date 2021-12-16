@@ -37,9 +37,9 @@ namespace backend.Controllers
             
             var filter = Builders<Orders>.Filter.Eq("orderId", id);
 
-            var dbList = client.GetDatabase("SCIOPEN").GetCollection<Orders>("orders").FindSync(filter);
+            var dbList = client.GetDatabase("SCIOPEN").GetCollection<Orders>("orders").FindSync(filter).SingleOrDefaultAsync();
 
-            return new JsonResult(dbList);
+            return new JsonResult(dbList.Result);
         }
 
         // POST: api/Orders
@@ -59,9 +59,8 @@ namespace backend.Controllers
         {
             MongoClient client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Orders>.Filter.Eq("_id", order.id);
-            var update = Builders<Orders>.Update.Set("orderId", order.orderId)
-                .Set("userId", order.userId)
+            var filter = Builders<Orders>.Filter.Eq("orderId", order.orderId);
+            var update = Builders<Orders>.Update.Set("userId", order.userId)
                 .Set("date", order.date)
                 .Set("destinationId", order.destinationId)
                 .Set("state", order.state)

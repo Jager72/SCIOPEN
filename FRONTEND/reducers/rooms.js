@@ -30,7 +30,7 @@ export const rooms = (state = initialState,action) => {
             return {
                 currentRoom: state.currentRoom,
                 visitedRooms: state.visitedRooms,
-                rooms: state.rooms.concat(action.payload)
+                rooms: state.rooms.push(action.payload)
             };
         case ACTION_TYPES.UPDATE.concat(ROOM):
             return {

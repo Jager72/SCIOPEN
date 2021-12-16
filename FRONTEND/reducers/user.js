@@ -30,7 +30,7 @@ export const user = (state = initialState,action) => {
             return {
                 isLogged:state.isLogged,
                 user:state.user,
-                users:state.users.concat(action.payload)
+                users:state.users.push(action.payload)
             };
         case ACTION_TYPES.UPDATE.concat(USER):
             return {
