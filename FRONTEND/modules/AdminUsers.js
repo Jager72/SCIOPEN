@@ -72,12 +72,23 @@ const AdminUsers = props => {
 
         let obj =
             {
-                id: data.newUserId, // ID
+              
+                userId: data.newUserId, // ID
                 name: data.newUserNick,
                 pin: data.newUserPin,
                 role: data.newUserRole,
+              
+
+                /*
+                userId: 5, // ID
+                name: "ELO",
+                pin: "2211",
+                role: "admin"
+                */
             }
-        DATA.push(obj)
+        console.log("Dupa");
+        props.addUser(obj);
+        //DATA.push(obj)
         ////////
         userIdChange(null) // ID
         userNickChange(null)
@@ -201,7 +212,7 @@ const AdminUsers = props => {
                 {
                     props.users.map((item) => {
                         return (
-                            <User item={item} key={item.userId}/>
+                            <User item={item} key={item.id}/>
                         )
                     })
                 }
@@ -218,7 +229,8 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
     setCurrentUserEdit: editActions.setCurrentUserEdit,
     setUserCreatingStatus: editActions.setUserCreatingStatus,
-    fetchUsers: userActions.FetchAll
+    fetchUsers: userActions.FetchAll,
+    addUser: userActions.Create
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(AdminUsers);

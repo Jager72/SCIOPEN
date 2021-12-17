@@ -17,7 +17,7 @@ export default {
             fetchAll:()=>axios.get(url),
             create:(room)=>axios.post(url,room),
             update:(room)=>axios.put(url,room),
-            delete:(id)=>axios.delete(url+id)
+            delete:(id)=>axios.delete(url+"_id?id="+id)
         }
     },
     room(url=baseUrl+'Rooms/'){

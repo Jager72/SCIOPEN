@@ -9,6 +9,7 @@ const initialState = {
 export const user = (state = initialState,action) => {
     switch (action.type){
         case ACTION_TYPES.LOGIN:
+            console.log(action.payload);
             return {
                 isLogged:true,
                 user:action.payload,
