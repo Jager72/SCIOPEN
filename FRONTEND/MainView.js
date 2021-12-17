@@ -14,10 +14,12 @@ import * as orderActions from './actions/order';
 import AdminUsers from './modules/AdminUsers';
 import ClassroomEditor from './modules/ClassroomEditor';
 
+import * as roomActions from './actions/rooms';
 const MainView = props => {
 
     useEffect(() => {
-        props.getOrders();
+        props.FetchAllRooms();
+        props.FetchAllOrders();
     }, []);
     useEffect(() => {
         //console.log(JSON.parse(props.user.user).name);
@@ -58,7 +60,8 @@ const mapStateToProps = state => ({
 })
 
 const mapActionsToProps = {
-    getOrders: orderActions.FetchAll
+    FetchAllOrders: orderActions.FetchAll,
+    FetchAllRooms: roomActions.FetchAll
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(MainView)
