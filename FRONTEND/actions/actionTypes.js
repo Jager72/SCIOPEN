@@ -12,6 +12,8 @@ export const ACTION_TYPES = {
     SET_CURRENT_USER: 'setCurrentUser',
     SET_CURRENT_USER_EDIT: 'setCurrentUserEdit',
     SET_USER_CREATING_STATUS: 'setUserCreatingStatus',
+    SET_CURRENT_ORDER: 'setCurrentOrder',
+    SET_PREP_LIST: 'setPrepList',
 }
 export const ORDER = 'order';
 export const ROOM = 'room';

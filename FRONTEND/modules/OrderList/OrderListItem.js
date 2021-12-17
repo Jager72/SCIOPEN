@@ -23,6 +23,7 @@ const OrderListItem = props => {
     const addOrder = (order) => {
         if(props.currentOrder == null){
             props.setCurrentOrder(order.orderId);
+            console.log(props.currentOrder)
             props.update(
                 {
                 orderId: order.orderId,
@@ -38,30 +39,56 @@ const OrderListItem = props => {
                 }
             )
             var prep = []
-            /*
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')
-            console.log(props.list)
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')
-            */
             props.fetchAll()
             props.list.forEach(element => {
-                if(element.state == 'preparing' && element.orderId==1){
-                    console.log(element.state)
+                if(element.state == 'preparing' && element.orderId==props.currentOrder){
                     prep.push(element)
                 }
             });
-            /*
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')
             props.setPrepList(prep)
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')
-            console.log(prep)
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')
-            console.log(props.prepList)
-            console.log('TTTTTTTTTTTTTTTTTTTTTTTTT')*/
         } else{
             Alert.alert('Uwaga','Musisz najpierw ukończyć poprzednie zamówienie!')
         }
     }
+
+    const finishOrder = (order) => {
+            props.setCurrentOrder(null);
+            props.update(
+                {
+                orderId: order.orderId,
+                userId: order.userId,
+                date: order.date,
+                destinationId: order.destinationId,
+                state: "done",
+                cheese: order.cheese,
+                ham: order.cheese,
+                butter: order.butter,
+                ketchup: order.ketchup,
+                quantity: order.quantity
+                }
+            )
+            props.fetchAll()
+            props.setPrepList(null)
+    }
+
+    const deliverOrder = (order) => {
+        props.update(
+            {
+            orderId: order.orderId,
+            userId: order.userId,
+            date: order.date,
+            destinationId: order.destinationId,
+            state: "delivered",
+            cheese: order.cheese,
+            ham: order.cheese,
+            butter: order.butter,
+            ketchup: order.ketchup,
+            quantity: order.quantity
+            }
+        )
+        props.fetchAll()
+}
+
     return(
     <View  style={item.state==='waiting' ?  styles.itemW : item.state==='preparing' ? styles.itemP : styles.itemD}>
         <View style={styles.itemMargin}>
@@ -102,7 +129,7 @@ const OrderListItem = props => {
             <View style={styles.itemRight}>
             {item.state === 'preparing' ?
                 <TouchableOpacity
-                    onPress={() => {/*Change state to 'done'*/}}
+                    onPress={() => {finishOrder(item)}}
                     style={styles.button}
                     >
                     <Feather
@@ -126,7 +153,7 @@ const OrderListItem = props => {
             :null}
             {item.state === 'done' ?
                 <TouchableOpacity
-                    onPress={() => {/*Change state to 'delivered'*/}}
+                    onPress={() => {deliverOrder(item)}}
                     style={styles.button}
                 >
                 <Feather

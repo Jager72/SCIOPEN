@@ -23,6 +23,10 @@ const images = {
   const OrderList = props =>{
 
     useEffect(() => {
+        props.setCurrentOrder(4)
+        console.log('aaa')
+        console.log(props.currentOrder)
+        console.log('aaa')
         setInterval(props.FetchAll, 1000);
     }, []);
 
