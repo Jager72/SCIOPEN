@@ -28,7 +28,8 @@ const MainView = props => {
             <Login/>
         );
     }
-    let user = JSON.parse(props.user.user)
+    let user = props.user.user
+    console.log(user.role==="admin");
     return (
         <View style={styles.container}>
             <Routes>

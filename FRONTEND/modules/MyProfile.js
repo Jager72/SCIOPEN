@@ -3,12 +3,13 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {color} from "../helpers/styles";
 import Header from "./Header";
 import photo from "../assets/JohnXina.jpg";
+import {connect} from 'react-redux';
 
 var nick = "ZongXina";
 var role = "Kucharz";
 var id = 2137;
 
-export default function MyProfile() {
+const MyProfile = (props) => {
     return (
         <View style={styles.container}>
 
@@ -23,12 +24,12 @@ export default function MyProfile() {
                     />
                 </View>
                 <View style={styles.Info}>
-                    <Text style={styles.Text1}>{nick}</Text>
-                    <Text style={styles.Text2}> #{id}</Text>
+                    <Text style={styles.Text1}>{props.user.name}</Text>
+                    <Text style={styles.Text2}> #{props.user.userId}</Text>
                 </View>
                 <View style={styles.Info}>
                     <Text style={styles.Text2}>Rola: </Text>
-                    <Text style={styles.Text1}>{role}</Text>
+                    <Text style={styles.Text1}>{props.user.role}</Text>
                 </View>
 
             </View>
@@ -62,6 +63,11 @@ export default function MyProfile() {
 
             </View>
 */
+
+const mapStateToProps = state => ({
+    user: state.user.user,
+});
+export default connect(mapStateToProps)(MyProfile);
 
 const styles = StyleSheet.create({
 

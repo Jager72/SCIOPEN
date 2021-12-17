@@ -4,14 +4,15 @@ import api from "./api";
 export const login = (login, pin) => dispatch => {
     api.user().login(login, pin).then(
         response => {
-            if (response.request.response === "Failed") {
+            const Response = JSON.parse(response.request.response)
+            if (typeof Response === "string") {
                 dispatch({
                     type: ACTION_TYPES.LOGOUT
                 })
             } else {
                 dispatch({
                     type: ACTION_TYPES.LOGIN,
-                    payload: response.request.response
+                    payload: Response
                 });
             }
         }).catch(err => console.log(err));

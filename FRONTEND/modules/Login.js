@@ -39,6 +39,7 @@ const Login = (props) => {
             Alert.alert('Błąd!', 'Pola nie mogą być puste!');
             return;
         }
+        console.log(userName, pin);
         props.login(userName, pin);
     }
 
