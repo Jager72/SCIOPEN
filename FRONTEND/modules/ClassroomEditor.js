@@ -109,7 +109,6 @@ const ClassroomEditor = props => {
                             maxLength={3}
                             onChangeText={(val) => roomNumberChange(val)}
                         />
-
                         <View style={styles.Description}>
                             <TextInput
                                 style={styles.descriptionText}

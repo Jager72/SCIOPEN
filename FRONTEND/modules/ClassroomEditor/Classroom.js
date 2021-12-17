@@ -65,7 +65,6 @@ const Classroom = props => {
         }
         let obj2 =
             {
-                id: item.id,
                 roomNumber: nr,
                 name: item.name,
                 description: des,
