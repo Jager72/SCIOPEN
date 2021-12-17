@@ -77,11 +77,11 @@ namespace backend.Controllers
 
         // DELETE: api/Orders
         [HttpDelete("_id")]
-        public JsonResult DeleteOrder(string id)
+        public JsonResult DeleteOrder(int id)
         {
             var client = new MongoClient(_configuration.GetConnectionString("con"));
 
-            var filter = Builders<Orders>.Filter.Eq("_id", ObjectId.Parse(id));
+            var filter = Builders<Orders>.Filter.Eq("orderId", id);
 
             client.GetDatabase("SCIOPEN").GetCollection<Orders>("orders").DeleteOne(filter);
 
