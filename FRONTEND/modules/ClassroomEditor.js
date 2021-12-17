@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, Text, TextInput, View, Alert} from 'react-native';
 import Classroom from "./ClassroomEditor/Classroom";
 import {color} from "../helpers/styles";
 import {connect} from 'react-redux';
 import * as editActions from '../actions/roomEditor';
 import Feather from 'react-native-vector-icons/Feather';
+import * as roomActions from '../actions/rooms';
 
 const ClassroomEditor = props => {
+
     const [data, setData] = React.useState({
         newRoomNumber: null,
         newRoomDescription: null,
@@ -55,15 +57,20 @@ const ClassroomEditor = props => {
         let obj = 
         {
           roomNumber: data.newRoomNumber,
-          available: true,
+          name: "string",
           description: data.newRoomDescription,
+          available: true,
+          startDate: "string"
         }
-        props.roomArr.push(obj)
+        props.Create(obj)
+        props.FetchAllRooms()
+        props.FetchAllRooms()
         ////////
         roomNumberChange(null)
         roomDescriptionChange(null)
         //props.setRoomCreatingStatus()
         changeCreatingStatus()
+        props.FetchAllRooms()
     }
     return(
         <View style={styles.container}>
@@ -72,7 +79,7 @@ const ClassroomEditor = props => {
             </View>
             <ScrollView>
                 {
-                    props.roomArr.map((item) => {
+                    props.rooms.map((item) => {
                         return (
                         <Classroom item={item} key={item.roomNumber}/>
                         )
@@ -141,11 +148,16 @@ const ClassroomEditor = props => {
 
 
 const mapStateToProps = state => ({
-    roomArr: state.roomEditor.roomArr
+    roomArr: state.roomEditor.roomArr,
+    rooms: state.rooms.rooms,
   })
   
   const mapActionsToProps = {
     deleteRoom: editActions.deleteRoom,
+    FetchAllRooms: roomActions.FetchAll,
+    Update: roomActions.Update,
+    Delete: roomActions.Delete,
+    Create: roomActions.Create,
   }
   
   export default connect(mapStateToProps,mapActionsToProps)(ClassroomEditor);

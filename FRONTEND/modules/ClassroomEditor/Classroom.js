@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput} from "react-native";
 import { color } from "../../helpers/styles";
 import Feather from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
 import * as editActions from '../../actions/roomEditor';
+import * as roomActions from '../../actions/rooms';
 
 const Classroom = props => {
+
+  useEffect(() => {
+    props.FetchAllRooms();
+}, []);
+
+
   var item = props.item;
   const [data, setData] = React.useState({
     changedRoomNumber: null,
@@ -43,15 +50,32 @@ const Classroom = props => {
       Alert.alert('Błąd!', 'Nie wprowadzono zmian ani numeru sali ani opisu sali!');
       return;
     }
+    var des = item.description
+    var nr = item.roomNumber
     /* check if new roomNumber is unique and then update roomNumber and roomDescription in db instead of this:*/
-    let obj = props.roomArr.find(x => x.roomNumber == data.currentRoom);
-    let index = props.roomArr.indexOf(obj);
+    //let obj = props.roomArr.find(x => x.roomNumber == data.currentRoom);
+    //let index = props.roomArr.indexOf(obj);
     if(data.changedRoomNumber !== null){
-      props.roomArr[index].roomNumber=data.changedRoomNumber;
+      //props.roomArr[index].roomNumber=data.changedRoomNumber;
+      nr = data.changedRoomNumber
     }
     if(data.changedRoomDescription !== null){
-      props.roomArr[index].description=data.changedRoomDescription;
+      des = data.changedRoomDescription
+      //props.roomArr[index].description=data.changedRoomDescription;
     }
+    let obj2 = 
+    {
+      id: item.id,
+      roomNumber: nr,
+      name: item.name,
+      description: des,
+      available: item.available,
+      startDate: item.startDate
+    }
+    props.Update(obj2)
+    props.FetchAllRooms();
+
+
     ///
     roomNumberChange(null)
     roomDescriptionChange(null)
@@ -72,7 +96,9 @@ const Classroom = props => {
     //let index = props.roomArr.indexOf(obj);
     //console.log(index)
     //DATA.splice(index, 1);
-    props.deleteRoom(number);
+    //props.deleteRoom(number);
+    props.Delete(number)
+    props.FetchAllRooms()
     /////
   }
 
@@ -161,11 +187,16 @@ const Classroom = props => {
 };
 
 const mapStateToProps = state => ({
-  roomArr: state.roomEditor.roomArr
+  roomArr: state.roomEditor.roomArr,
+  rooms: state.rooms.rooms,
 })
 
 const mapActionsToProps = {
   deleteRoom: editActions.deleteRoom,
+  FetchAllRooms: roomActions.FetchAll,
+  Update: roomActions.Update,
+  Delete: roomActions.Delete,
+  Create: roomActions.Create,
 }
 
 export default connect(mapStateToProps,mapActionsToProps)(Classroom);

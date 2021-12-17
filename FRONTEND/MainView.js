@@ -7,12 +7,13 @@ import MainMenu from './modules/MainMenu';
 import Login from './modules/Login'
 import ConfigureOrder from "./modules/ConfigureOrder";
 import OrderList from "./modules/OrderList";
-import ClassroomManager from "./modules/ClassroomManager";
+import ClassroomManager from "./modules/ClassroomManager.js";
 import ToastSubMenu from './modules/ConfigureOrder/ToastSubMenu';
 import MyProfile from './modules/MyProfile';
 import * as orderActions from './actions/order';
 import * as roomActions from './actions/rooms';
 import AdminUsers from './modules/AdminUsers';
+import ClassroomEditor from './modules/ClassroomEditor';
 
 const MainView = props => {
 
@@ -33,6 +34,7 @@ const MainView = props => {
                 <Route path="/configureOrder" element={<ConfigureOrder/>}/>
                 <Route path="/orderList" element={<OrderList/>}/>
                 <Route path="/classroomManager" element={<ClassroomManager/>}/>
+                <Route path="/classroomEditor" element={<ClassroomEditor/>}/>
                 <Route path="/toastSubMenu" element={<ToastSubMenu/>}/>
                 <Route path="/myProfile" element={<MyProfile/>}/>
                 <Route path="/adminUsers" element={<AdminUsers/>}/>
