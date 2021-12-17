@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Link} from 'react-router-native';
 import {color} from '../../helpers/styles';
 import Toast from '../../assets/Toast'
@@ -9,7 +9,7 @@ import Header from "../Header";
 const ToastSubMenu = () => {
     return (
         <View style={styles.container}>
-             <Header title={"Tosty"} path={'/'}/>
+            <Header title={"Tosty"} path={'/'}/>
             <View style={styles.Background}>
                 <Link to="/configureOrder" style={styles.block}>
                     <View style={styles.block2}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    block2:{
+    block2: {
         width: "100%",
         height: "100%",
         marginTop: "2%",

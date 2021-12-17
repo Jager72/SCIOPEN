@@ -1,22 +1,20 @@
 import React from 'react';
-import {Image,  ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {color} from "../helpers/styles";
-import Statistics from "./MyProfile/Statistics";
 import Header from "./Header";
+import photo from "../assets/JohnXina.jpg";
 
 var nick = "ZongXina";
 var role = "Kucharz";
 var id = 2137;
 
-import photo from "../assets/JohnXina.jpg";
-
-export default function MyProfile(){
-    return(
+export default function MyProfile() {
+    return (
         <View style={styles.container}>
 
-        <Header title={"Mój Profil"} path={'/'}/>
+            <Header title={"Mój Profil"} path={'/'}/>
 
-            <View style={styles.Profile} >
+            <View style={styles.Profile}>
 
                 <View style={styles.PhotoView}>
                     <Image
@@ -34,7 +32,7 @@ export default function MyProfile(){
                 </View>
 
             </View>
-            
+
 
         </View>
     );
@@ -46,7 +44,7 @@ export default function MyProfile(){
                 <View style={styles.StatsHeader}>
                     <Text style={styles.StatsHeaderText}>Twoje Statystyki:</Text>
                 </View>
-                
+
                 <ScrollView>
                     <Statistics Name={"Zrealizowane zamówienia"} Value={24}/>
                     <Statistics Name={"Upieczone tosty"} Value={32}/>
@@ -66,21 +64,21 @@ export default function MyProfile(){
 */
 
 const styles = StyleSheet.create({
-   
+
     Profile: {
         flex: 1,
     },
     PhotoView:
-    {
-        width: '100%',
-        height: 175,
-        flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center",
-        marginTop: '8%',
-        marginBottom: '5%',
+        {
+            width: '100%',
+            height: 175,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+            marginTop: '8%',
+            marginBottom: '5%',
 
-    },
+        },
     Photo: {
         width: 175,
         height: 175,
@@ -89,13 +87,13 @@ const styles = StyleSheet.create({
         borderColor: color.primaryColor,
     },
     Info:
-    {
-        width: '100%',
-        minHeight: 50,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-    },
+        {
+            width: '100%',
+            minHeight: 50,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+        },
     Text1: {
         textAlign: "center",
         color: color.primaryColor,
@@ -129,6 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     container: {
-        flex:1,
+        flex: 1,
     }
 });

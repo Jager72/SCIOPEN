@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Picker, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import User from "./AdminUsers/User";
 import {color} from "../helpers/styles";
-import DATA from './AdminUsers/UsersList';
 import roleDATA from './AdminUsers/RolesList';
 import {connect} from 'react-redux';
 import * as editActions from '../actions/userEditor';
@@ -15,9 +14,7 @@ const AdminUsers = props => {
 
     useEffect(() => {
         props.fetchUsers();
-    },[])
-    console.log(props.users);
-
+    }, [])
 
     const [data, setData] = React.useState({
         newUserId: null, // ID
@@ -72,24 +69,13 @@ const AdminUsers = props => {
 
         let obj =
             {
-              
+
                 userId: data.newUserId, // ID
                 name: data.newUserNick,
                 pin: data.newUserPin,
                 role: data.newUserRole,
-              
-
-                /*
-                userId: 5, // ID
-                name: "ELO",
-                pin: "2211",
-                role: "admin"
-                */
             }
-        console.log("Dupa");
         props.addUser(obj);
-        //DATA.push(obj)
-        ////////
         userIdChange(null) // ID
         userNickChange(null)
         userRoleChange(null)

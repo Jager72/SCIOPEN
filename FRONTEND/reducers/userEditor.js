@@ -1,12 +1,12 @@
 import {ACTION_TYPES} from "../actions/actionTypes";
 
 const initialState2 = {
-    currentUser:null,
-    creatingUser:false
+    currentUser: null,
+    creatingUser: false
 };
 
-export const userEditor = (state = initialState2,action) => {
-    switch (action.type){
+export const userEditor = (state = initialState2, action) => {
+    switch (action.type) {
         case ACTION_TYPES.SET_CURRENT_USER_EDIT:
             return {
                 currentUser: action.payload,

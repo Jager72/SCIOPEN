@@ -1,13 +1,12 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import { Link } from "react-router-native";
+import {BackHandler, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Link} from "react-router-native";
 
 import {color} from '../helpers/styles';
 import Toast from '../assets/Toast'
 import Door from '../assets/Door'
 import User from '../assets/User';
 import Room from '../assets/Room';
-import { BackHandler } from 'react-native';
 
 const MainMenu = () => {
     return (
@@ -34,7 +33,7 @@ const MainMenu = () => {
                         <Text style={styles.textHeader}>Pokoje</Text>
                     </View>
                 </Link>
-                <TouchableOpacity style={styles.block} onPress={()=>BackHandler.exitApp()}>
+                <TouchableOpacity style={styles.block} onPress={() => BackHandler.exitApp()}>
                     <Door width="60%" height="60%"/>
                     <Text style={styles.textHeader}>Wyjście</Text>
                 </TouchableOpacity>

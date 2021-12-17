@@ -1,21 +1,20 @@
-import {ACTION_TYPES,USER} from "./actionTypes";
+import {ACTION_TYPES, USER} from "./actionTypes";
 import api from "./api";
-import {Alert} from "react-native";
 
-export const login = (login,pin) => dispatch => {
-    api.user().login(login,pin).then(
+export const login = (login, pin) => dispatch => {
+    api.user().login(login, pin).then(
         response => {
-            if(response.request.response==="Failed"){
+            if (response.request.response === "Failed") {
                 dispatch({
                     type: ACTION_TYPES.LOGOUT
                 })
-            }else {
+            } else {
                 dispatch({
                     type: ACTION_TYPES.LOGIN,
                     payload: response.request.response
                 });
             }
-        }).catch(err=>console.log(err));
+        }).catch(err => console.log(err));
 }
 export const logout = () => dispatch => {
     dispatch({

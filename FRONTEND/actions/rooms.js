@@ -1,4 +1,4 @@
-import {ACTION_TYPES,ROOM} from "./actionTypes";
+import {ACTION_TYPES, ROOM} from "./actionTypes";
 import api from "./api";
 
 export const setCurrentRoom = (roomNumber) => dispatch => {

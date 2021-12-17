@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, Text, TextInput, View, Alert} from 'react-native';
+import {Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Classroom from "./ClassroomEditor/Classroom";
 import {color} from "../helpers/styles";
 import {connect} from 'react-redux';
@@ -13,14 +13,13 @@ const ClassroomEditor = props => {
     useEffect(() => {
         setInterval(props.FetchAllRooms, 1000);
     }, []);
-    
+
     const [data, setData] = React.useState({
         newRoomNumber: null,
         newRoomDescription: null,
         creating: false,
-
     });
-    
+
     const changeCreatingStatus = () => {
         setData({
             ...data,
@@ -43,108 +42,115 @@ const ClassroomEditor = props => {
 
     const openCreatingPanel = () => {
         changeCreatingStatus()
-        //props.setRoomCreatingStatus()
     }
-    
+
     const cancelCreating = () => {
         roomNumberChange(null)
         roomDescriptionChange(null)
         changeCreatingStatus()
-        //props.setRoomCreatingStatus()
     }
 
     const createRoom = () => {
-        if ( data.newRoomNumber === null || data.newRoomDescription === null ) {
+        if (data.newRoomNumber === null || data.newRoomDescription === null) {
             Alert.alert('Błąd!', 'Nie wprowadzono numeru sali lub opisu sali!');
             return;
         }
         /*check if roomNumber is unique and than add room to db instead of this:*/
-        let obj = 
-        {
-          roomNumber: data.newRoomNumber,
-          name: "string",
-          description: data.newRoomDescription,
-          available: true,
-          startDate: "string"
+        if(props.rooms.includes(data.newRoomNumber)){
+            Alert.alert('Błąd!', 'Sala o podanym numerze już istnieje!');
+            return;
         }
+        let obj =
+            {
+                roomNumber: data.newRoomNumber,
+                name: "string",
+                description: data.newRoomDescription,
+                available: true,
+                startDate: "string"
+            }
         props.Create(obj)
         props.FetchAllRooms()
         props.FetchAllRooms()
         ////////
         roomNumberChange(null)
         roomDescriptionChange(null)
-        //props.setRoomCreatingStatus()
         changeCreatingStatus()
         props.FetchAllRooms()
     }
-    return(
+    return (
         <View style={styles.container}>
             <Header title={"Edytor Sal"} path={'/'}/>
             <ScrollView>
                 {
                     props.rooms.map((item) => {
                         return (
-                        <Classroom item={item} key={item.roomNumber}/>
+                            <Classroom item={item} key={item.roomNumber}/>
                         )
                     })
                 }
                 {!data.creating ?
-            <TouchableOpacity 
-            onPress={() => {openCreatingPanel()}}
-            style={styles.button}>
-                <Text style={styles.textButton}>Dodaj salę</Text>
-            </TouchableOpacity>
-            :
-            <View style={styles.class}>
-                <TextInput
-                    autoCapitalize="none"
-                    keyboardType="numeric"
-                    style={styles.typeText}
-                    underlineColorAndroid="transparent"
-                    selectionColor={'white'}
-                    placeholder={'000'}
-                    placeholderTextColor="#D7D7D7"
-                    maxLength={3}
-                    onChangeText={(val) => roomNumberChange(val)}
-                />
-        
-                <View style={styles.Description}>
-                    <TextInput
-                        style={styles.descriptionText}
-                        underlineColorAndroid="transparent"
-                        selectionColor={'white'}
-                        placeholder={'Opis'}
-                        placeholderTextColor="#D7D7D7"
-                        multiline={true}
-                        onChangeText={(val) => roomDescriptionChange(val)}
-                    />
-                </View>
-                <View style={styles.buttonHolder}>
                     <TouchableOpacity
-                    onPress={() => {createRoom()}}
-                    style={styles.saveButton}
-                    >
-                        <Feather
-                                name="check"
-                                color="#EBEBEB"
-                                size={35}
-                        />
+                        onPress={() => {
+                            openCreatingPanel()
+                        }}
+                        style={styles.button}>
+                        <Text style={styles.textButton}>Dodaj salę</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => {cancelCreating()}}
-                    style={styles.deleteButton}
-                    >
-                        <Feather
-                                name="x-square"
-                                color="#EBEBEB"
-                                size={35}
+                    :
+                    <View style={styles.class}>
+                        <TextInput
+                            autoCapitalize="none"
+                            keyboardType="numeric"
+                            style={styles.typeText}
+                            underlineColorAndroid="transparent"
+                            selectionColor={'white'}
+                            placeholder={'000'}
+                            placeholderTextColor="#D7D7D7"
+                            maxLength={3}
+                            onChangeText={(val) => roomNumberChange(val)}
                         />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            }
+
+                        <View style={styles.Description}>
+                            <TextInput
+                                style={styles.descriptionText}
+                                underlineColorAndroid="transparent"
+                                selectionColor={'white'}
+                                placeholder={'Opis'}
+                                placeholderTextColor="#D7D7D7"
+                                multiline={true}
+                                onChangeText={(val) => roomDescriptionChange(val)}
+                            />
+                        </View>
+                        <View style={styles.buttonHolder}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    createRoom()
+                                }}
+                                style={styles.saveButton}
+                            >
+                                <Feather
+                                    name="check"
+                                    color="#EBEBEB"
+                                    size={35}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    cancelCreating()
+                                }}
+                                style={styles.deleteButton}
+                            >
+                                <Feather
+                                    name="x-square"
+                                    color="#EBEBEB"
+                                    size={35}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }
             </ScrollView>
-            
+
         </View>
     );
 }
@@ -153,17 +159,17 @@ const ClassroomEditor = props => {
 const mapStateToProps = state => ({
     roomArr: state.roomEditor.roomArr,
     rooms: state.rooms.rooms,
-  })
-  
-  const mapActionsToProps = {
+})
+
+const mapActionsToProps = {
     deleteRoom: editActions.deleteRoom,
     FetchAllRooms: roomActions.FetchAll,
     Update: roomActions.Update,
     Delete: roomActions.Delete,
     Create: roomActions.Create,
-  }
-  
-  export default connect(mapStateToProps,mapActionsToProps)(ClassroomEditor);
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(ClassroomEditor);
 
 const styles = StyleSheet.create({
     Header: {
@@ -173,27 +179,27 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-around",
     },
-    saveButton:{
+    saveButton: {
         backgroundColor: color.highlightColor,
         borderRadius: 10,
-        margin:3,
-        padding:2,
+        margin: 3,
+        padding: 2,
     },
-    deleteButton:{
+    deleteButton: {
         backgroundColor: 'red',
         borderRadius: 10,
-        margin:3,
-        padding:2,
+        margin: 3,
+        padding: 2,
     },
 
     typeText: {
         flex: 1.3,
-        color:"white",
+        color: "white",
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 25,
-      },
-      Description: {
+    },
+    Description: {
         flex: 3,
         backgroundColor: "#064c7d",
         height: "90%",
@@ -201,22 +207,22 @@ const styles = StyleSheet.create({
         color: 'white',
         justifyContent: 'center',
         padding: 3
-      },
-      descriptionText: {
+    },
+    descriptionText: {
         color: 'white',
         textAlign: "center",
         fontSize: 15,
-    
-      },
-      buttonHolder: {
-          flex:1.3,
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          flexDirection: 'column',
-      },
 
-    class : {
+    },
+    buttonHolder: {
+        flex: 1.3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        flexDirection: 'column',
+    },
+
+    class: {
         height: 100,
         flexDirection: "row",
         backgroundColor: color.secondaryColor,
@@ -254,7 +260,7 @@ const styles = StyleSheet.create({
     },
     resetButton: {
         flex: 2,
-        marginRight:"50%",
+        marginRight: "50%",
     },
     Separator1: {
         height: 30,
@@ -283,6 +289,6 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        flex:1,
+        flex: 1,
     }
 });

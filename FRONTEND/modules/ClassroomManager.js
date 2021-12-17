@@ -1,15 +1,16 @@
-import React,  {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Classroom from "./ClassroomManager/Classroom";
 import {color} from "../helpers/styles";
 import {connect} from 'react-redux';
 import * as roomActions from '../actions/rooms';
 import Header from './Header';
+
 const ClassroomManager = props => {
     useEffect(() => {
         setInterval(props.FetchAllRooms, 1000);
     }, []);
-    return(
+    return (
         <View style={styles.container}>
             <Header title={"Sale"} path={'/'}/>
             {props.currentRoom !== null ?
@@ -19,10 +20,10 @@ const ClassroomManager = props => {
                     </View>
                     {
                         props.rooms.map((item) => {
-                            if(item.roomNumber === props.currentRoom){
-                            return (
-                            <Classroom item={item} key={item.roomNumber}/>
-                            );
+                            if (item.roomNumber === props.currentRoom) {
+                                return (
+                                    <Classroom item={item} key={item.roomNumber}/>
+                                );
                             }
                         })
                     }</View> : null
@@ -33,10 +34,11 @@ const ClassroomManager = props => {
                 </View>
                 {
                     props.rooms.map((item) => {
-                        if(item.available && item.roomNumber !== props.currentRoom){
-                        return (
-                        <Classroom item={item} key={item.roomNumber}/>
-                        )}
+                        if (item.available && item.roomNumber !== props.currentRoom) {
+                            return (
+                                <Classroom item={item} key={item.roomNumber}/>
+                            )
+                        }
                     })
                 }
                 <View style={styles.Separator3}>
@@ -44,10 +46,11 @@ const ClassroomManager = props => {
                 </View>
                 {
                     props.rooms.map((item) => {
-                        if(!item.available && item.roomNumber !== props.currentRoom){
-                        return (
-                        <Classroom item={item} key={item.roomNumber}/>
-                        )}
+                        if (!item.available && item.roomNumber !== props.currentRoom) {
+                            return (
+                                <Classroom item={item} key={item.roomNumber}/>
+                            )
+                        }
                     })
                 }
             </ScrollView>
@@ -60,15 +63,15 @@ const mapStateToProps = state => ({
     currentRoom: state.rooms.currentRoom,
     visitedRooms: state.rooms.visitedRooms,
     rooms: state.rooms.rooms,
-  })
+})
 
-  const mapActionsToProps = {
+const mapActionsToProps = {
     setCurrentRoom: roomActions.setCurrentRoom,
     addVisitedRoom: roomActions.addVisitedRoom,
     FetchAllRooms: roomActions.FetchAll
-  }
+}
 
-  export default connect(mapStateToProps,mapActionsToProps)(ClassroomManager);
+export default connect(mapStateToProps, mapActionsToProps)(ClassroomManager);
 
 const styles = StyleSheet.create({
     Header: {
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     },
     resetButton: {
         flex: 2,
-        marginRight:"50%",
+        marginRight: "50%",
     },
     Separator1: {
         height: 30,
@@ -118,6 +121,6 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        flex:1,
+        flex: 1,
     }
 });

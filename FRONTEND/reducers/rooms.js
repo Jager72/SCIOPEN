@@ -1,13 +1,13 @@
-import {ACTION_TYPES,ROOM} from "../actions/actionTypes";
+import {ACTION_TYPES, ROOM} from "../actions/actionTypes";
 
 const initialState = {
-    currentRoom:null,
-    visitedRooms:[],
-    rooms:[]
+    currentRoom: null,
+    visitedRooms: [],
+    rooms: []
 };
 
-export const rooms = (state = initialState,action) => {
-    switch (action.type){
+export const rooms = (state = initialState, action) => {
+    switch (action.type) {
         case ACTION_TYPES.SET_CURRENT_ROOM:
             return {
                 currentRoom: action.payload,

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import { color } from '../helpers/styles';
+import {color} from '../helpers/styles';
 
 const MenuBar = ({CurrentPageTitle}) => {
-    return(
+    return (
         <View style={styles.MenuBar}>
             <Button color={color.highlightColor} title="MENU"/>
             <Text>{CurrentPageTitle}</Text>
@@ -16,7 +16,7 @@ export default MenuBar;
 const styles = StyleSheet.create({
     MenuBar: {
         flex: 0,
-        backgroundColor: color.darkColor ,
-        height:53,
+        backgroundColor: color.darkColor,
+        height: 53,
     },
 });
