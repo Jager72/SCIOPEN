@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {StyleSheet, Text, View} from 'react-native';
 import {Link} from 'react-router-native';
 import {color} from '../../helpers/styles';
@@ -6,7 +7,7 @@ import Toast from '../../assets/Toast'
 import List from '../../assets/List';
 import Header from "../Header";
 
-const ToastSubMenu = () => {
+const ToastSubMenu = props => {
     return (
         <View style={styles.container}>
             <Header title={"Tosty"} path={'/'}/>
@@ -17,19 +18,22 @@ const ToastSubMenu = () => {
                         <Text style={styles.textHeader}>Zamów!</Text>
                     </View>
                 </Link>
-                <Link to="/orderList" style={styles.block}>
-                    <View style={styles.block2}>
-                        <List width="60%" height="60%"/>
-                        <Text style={styles.textHeader}>Zamówienia</Text>
-                    </View>
-                </Link>
+                {props.user.role === "admin" || props.user.role === 'cook' ?
+                    <Link to="/orderList" style={styles.block}>
+                        <View style={styles.block2}>
+                            <List width="60%" height="60%"/>
+                            <Text style={styles.textHeader}>Zamówienia</Text>
+                        </View>
+                    </Link> : null
+                }
+
             </View>
         </View>
     )
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user.user
 });
 
 
