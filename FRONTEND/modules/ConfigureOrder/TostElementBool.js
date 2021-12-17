@@ -6,8 +6,10 @@ import Ketchup from "../../assets/Ketchup"
 const images = {
     ketchup: <Ketchup width={50} height={50}/>,
 }
-const TostElementInput = ({itemType, eImage}) => {
-    const [isEnabled, setIsEnabled] = useState(false);
+const TostElementInput = ({itemType, eImage, data, dataSetter}) => {
+    const isEnabled = data;
+    const setIsEnabled = dataSetter;
+
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return (
         <View style={styles.TostElementInput}>

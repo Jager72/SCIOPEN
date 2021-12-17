@@ -28,7 +28,12 @@ const ToastSubMenu = () => {
     )
 }
 
-export default ToastSubMenu;
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+
+export default connect(mapStateToProps)(ToastSubMenu);
 
 const styles = StyleSheet.create({
     Background: {

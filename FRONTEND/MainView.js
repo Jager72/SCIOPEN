@@ -29,7 +29,6 @@ const MainView = props => {
         );
     }
     let user = props.user.user
-    console.log(user.role==="admin");
     return (
         <View style={styles.container}>
             <Routes>

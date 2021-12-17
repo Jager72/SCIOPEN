@@ -144,12 +144,12 @@ const OrderListItem = props => {
                     {item.state === 'waiting' ?
                         <TouchableOpacity
                             onPress={() => {
-                                addOrder(item)
+                                deliverOrder(item)
                             }}
                             style={styles.button}
                         >
                             <Feather
-                                name="arrow-up-circle"
+                                name="check"
                                 color="#EBEBEB"
                                 size={45}
                             />

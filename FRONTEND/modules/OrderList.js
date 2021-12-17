@@ -27,7 +27,6 @@ const OrderList = props => {
 
     return (
         <View style={styles.container}>
-
             <Header title={"Zamówienia"} path={'/toastSubMenu'}/>
             <View style={styles.main}>
                 {props.prepList !== null ?
@@ -42,7 +41,7 @@ const OrderList = props => {
                     <ScrollView>
                         {
                             props.list.map((item) => {
-                                if (item.state != 'preparing' && item.state != 'delivered') {
+                                if (item.state !== 'preparing' && item.state !== 'delivered') {
                                     return (
                                         <OrderListItem item={item} key={item.orderId}/>
                                     )

@@ -11,20 +11,21 @@ const images = {
     ketchup: <Ketchup width={50} height={50}/>,
     amount: <Text style={{fontSize: 45, paddingHorizontal: 10}}>#</Text>
 }
-const TostElementInput = ({itemType, eImage}) => {
-    const [getValue, setValue] = useState(1);
+const TostElementInput = ({itemType, eImage,data,dataSetter}) => {
+    const getValue = data;
+    const setValue = dataSetter;
     return (
         <View style={styles.TostElementInput}>
             {images[eImage]}
             <Text style={styles.typeText}>{itemType}</Text>
             <View style={styles.buttonWrapper}>
-                <Button disabled={eImage == "amount" ? getValue == 1 : !getValue} onPress={() => {
+                <Button disabled={eImage === "amount" ? getValue === 1 : !getValue} onPress={() => {
                     setValue(getValue - 1)
                 }} color="#ac0303" title="-"/>
             </View>
             <Text style={styles.amountText}>{getValue}</Text>
             <View style={styles.buttonWrapper}>
-                <Button onPress={() => {
+                <Button disabled={eImage === "amount" ? getValue>9 : getValue>2} onPress={() => {
                     setValue(getValue + 1)
                 }} color={color.highlightColor} title="+"/>
             </View>
