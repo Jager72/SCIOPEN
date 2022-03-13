@@ -8,7 +8,8 @@ import Header from './Header';
 
 const ClassroomManager = props => {
     useEffect(() => {
-        setInterval(props.FetchAllRooms, 1000);
+        const interval = setInterval(props.FetchAllRooms, 1000);
+        return () => clearInterval(interval);
     }, []);
     return (
         <View style={styles.container}>

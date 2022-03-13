@@ -11,7 +11,7 @@ import Header from './Header';
 const ClassroomEditor = props => {
 
     useEffect(() => {
-        setInterval(props.FetchAllRooms, 1000);
+        props.FetchAllRooms();
     }, []);
 
     const [data, setData] = React.useState({

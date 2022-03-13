@@ -21,8 +21,9 @@ const images = {
 const OrderList = props => {
 
     useEffect(() => {
-        props.setCurrentOrder(4)
-        setInterval(props.FetchAll, 1000);
+        //props.setCurrentOrder(4)
+        const interval = setInterval(props.FetchAll, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return (
