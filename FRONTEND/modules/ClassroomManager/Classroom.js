@@ -26,6 +26,7 @@ const Classroom = props => {
 
 
     const enterRoom = (room) => {
+        props.FetchAll()
         props.setCurrentRoom(room.roomNumber);
         /*Change state to 'busy'*/
         props.update(
@@ -38,6 +39,7 @@ const Classroom = props => {
             }
         )
         props.FetchAll()
+
     }
 
     return (

@@ -27,6 +27,7 @@ const ConfigureOrder = props => {
             quantity: quantity
         }
         props.addOrder(order);
+        alert("Order placed successfully");
     };
     return (
         <View style={styles.container}>
