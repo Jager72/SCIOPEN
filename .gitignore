@@ -12,6 +12,7 @@ FRONTEND/npm-debug.*
 FRONTEND/web-build/
 FRONTEND/package-lock.json
 FRONTEND/yarn.lock
+FRONTEND/android/
 
 # macOS
 .DS_Store
