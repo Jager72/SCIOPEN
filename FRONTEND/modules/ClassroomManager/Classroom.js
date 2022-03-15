@@ -54,6 +54,9 @@ const Classroom = props => {
             <View style={styles.Description}>
                 <Text style={styles.descriptionText}>{item.description}</Text>
             </View>
+            <View style={styles.visitors}>
+                <Text>{item.currentVisitors}/{item.maxVisitors}</Text>
+            </View>
             <View style={styles.buttonHolder}>
                 {item.available ?
                     <TouchableOpacity
@@ -195,6 +198,15 @@ const styles = StyleSheet.create({
     notAvailable: {
         backgroundColor: "#bd6a17",
         borderRadius: 10,
-    }
+    },
+    visitors:{
+        width: '10%',
+        backgroundColor: "#064c7d",
+        height: "90%",
+        borderRadius: 5,
+        color: 'white',
+        justifyContent: 'center',
+        textAlign: "center"
+    },
 
 });
