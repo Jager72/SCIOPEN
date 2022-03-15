@@ -15,7 +15,7 @@ const ConfigureOrder = props => {
     const orders = props.orders.list.sort((a, b) => a.orderId - b.orderId);
     const handleCreate = () => {
         const order = {
-            orderId: orders[orders.length - 1].orderId+1,
+            orderId: orders.length>0?orders[orders.length - 1].orderId+1:0,
             userId:props.user.userId,
             date:new Date().toLocaleTimeString(),
             destinationId:0,
