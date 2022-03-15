@@ -5,6 +5,7 @@ import {order} from './order';
 import {roomEditor} from './roomEditor';
 import {userEditor} from './userEditor';
 import {orderList} from './orderList';
+import { group } from './group';
 
 export const reducers = combineReducers({
     user,
@@ -13,4 +14,5 @@ export const reducers = combineReducers({
     roomEditor,
     userEditor,
     orderList,
+    group,
 })

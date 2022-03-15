@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://e6ef-213-155-177-31.ngrok.io/api/';
+const baseUrl = 'https://d657-213-155-177-31.ngrok.io/api/';
 
 export default {
     order(url = baseUrl + 'Orders/') {
