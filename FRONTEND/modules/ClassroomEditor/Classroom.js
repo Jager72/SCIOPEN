@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {color} from "../../helpers/styles";
 import Feather from 'react-native-vector-icons/Feather';
@@ -14,10 +14,12 @@ const Classroom = props => {
 
 
     var item = props.item;
-    const [data, setData] = React.useState({
+    const [data, setData] = useState({
         changedRoomNumber: null,
         changedRoomDescription: null,
         currentRoom: null,
+        maxVisitors: null,
+        currentVisitors: null,
     });
     const editRoom = (number) => {
         if (data.currentRoom === null) {
@@ -44,14 +46,28 @@ const Classroom = props => {
             changedRoomDescription: val,
         });
     }
+    const maxVisitorsChange = (val) => {
+        setData({
+            ...data,
+            maxVisitors: val,
+        });
+    }
+    const currentVisitorsChange = (val) => {
+        setData({
+            ...data,
+            currentVisitors: val,
+        });
+    }
 
     const saveRoom = () => {
-        if (data.changedRoomNumber === null && data.changedRoomDescription === null) {
+        if (data.changedRoomNumber === null && data.changedRoomDescription === null && data.maxVisitors === null && data.currentVisitors === null) {
             Alert.alert('Błąd!', 'Nie wprowadzono zmian ani numeru sali ani opisu sali!');
             return;
         }
-        var des = item.description
-        var nr = item.roomNumber
+        let des = item.description
+        let nr = item.roomNumber
+        let max = item.maxVisitors
+        let cur = item.currentVisitors
         /* check if new roomNumber is unique and then update roomNumber and roomDescription in db instead of this:*/
         //let obj = props.roomArr.find(x => x.roomNumber == data.currentRoom);
         //let index = props.roomArr.indexOf(obj);
@@ -63,19 +79,27 @@ const Classroom = props => {
             des = data.changedRoomDescription
             //props.roomArr[index].description=data.changedRoomDescription;
         }
+        if (data.maxVisitors !== null) {
+            //props.roomArr[index].maxVisitors=data.maxVisitors;
+            max = data.maxVisitors
+        }
+        if (data.currentVisitors !== null) {
+            //props.roomArr[index].currentVisitors=data.currentVisitors;
+            cur = data.currentVisitors
+        }
         let obj2 =
             {
                 roomNumber: nr,
                 name: item.name,
                 description: des,
                 available: item.available,
-                startDate: item.startDate
+                startDate: item.startDate,
+                currentVisitors: cur,
+                maxVisitors: max,
             }
         props.Update(obj2)
         props.FetchAllRooms();
 
-
-        ///
         roomNumberChange(null)
         roomDescriptionChange(null)
         //props.setCurrentRoomEdit(null);
@@ -124,6 +148,40 @@ const Classroom = props => {
                         placeholderTextColor="#D7D7D7"
                         multiline={true}
                         onChangeText={(val) => roomDescriptionChange(val)}
+                    />
+                }
+            </View>
+            <View style={styles.visitors}>
+                {item.roomNumber !== data.currentRoom ?
+                    <Text style={styles.maxVisitorsText}>{item.maxVisitors}</Text>
+                    :
+                    <TextInput
+                        autoCapitalize="none"
+                        keyboardType="numeric"
+                        style={styles.maxVisitorsText}
+                        underlineColorAndroid="transparent"
+                        selectionColor={'white'}
+                        placeholder={item.maxVisitors.toString()}
+                        placeholderTextColor="#D7D7D7"
+                        maxLength={3}
+                        onChangeText={(val) => maxVisitorsChange(val)}
+                    />
+                }
+            </View>
+            <View style={styles.visitors}>
+                {item.roomNumber !== data.currentRoom ?
+                    <Text style={styles.currentVisitorsText}>{item.currentVisitors}</Text>
+                    :
+                    <TextInput
+                        autoCapitalize="none"
+                        keyboardType="numeric"
+                        style={styles.currentVisitorsText}
+                        underlineColorAndroid="transparent"
+                        selectionColor={'white'}
+                        placeholder={item.currentVisitors.toString()}
+                        placeholderTextColor="#D7D7D7"
+                        maxLength={3}
+                        onChangeText={(val) => currentVisitorsChange(val)}
                     />
                 }
             </View>
@@ -220,7 +278,6 @@ const styles = StyleSheet.create({
         margin: 3,
         padding: 2,
     },
-
     class: {
         height: 100,
         flexDirection: "row",
@@ -230,21 +287,29 @@ const styles = StyleSheet.create({
         margin: 8,
         borderRadius: 25,
     },
-
     typeText: {
-        flex: 1.3,
+        width: '20%',
         color: "white",
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 25,
     },
     Description: {
-        flex: 3,
+        width: '50%',
         backgroundColor: "#064c7d",
         height: "90%",
         borderRadius: 5,
         color: 'white',
         justifyContent: 'center'
+    },
+    visitors:{
+        width: '5%',
+        backgroundColor: "#064c7d",
+        height: "90%",
+        borderRadius: 5,
+        color: 'white',
+        justifyContent: 'center',
+        textAlign: "center"
     },
     descriptionText: {
         color: 'white',
@@ -253,7 +318,7 @@ const styles = StyleSheet.create({
 
     },
     buttonHolder: {
-        flex: 1.3,
+        width: '20%',
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',

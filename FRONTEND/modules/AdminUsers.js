@@ -13,8 +13,9 @@ const AdminUsers = props => {
     const [selectedValue, setSelectedValue] = useState("");
 
     useEffect(() => {
-        props.fetchUsers();
-    }, [])
+        const interval = setInterval(props.fetchUsers, 200);
+        return () => clearInterval(interval);
+    }, []);
 
     const [data, setData] = React.useState({
         newUserId: null, // ID
